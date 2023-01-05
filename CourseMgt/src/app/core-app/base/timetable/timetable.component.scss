@@ -1,0 +1,89 @@
+@import '../../../../variable.scss';
+.wrapper{
+  padding: 50px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(229, 239, 243);
+  box-sizing: border-box;
+  // display: flex;
+
+  .time{
+    width: 10%;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 5px;
+    height: 52vh;
+    margin-top: 40px;
+    margin-left: 100px;
+    grid-row-gap: -5px;
+
+  }
+
+
+  .timetable{
+
+    display: grid;
+    width: 120%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 10px;
+    padding: 40px 20px;
+    padding-top: 10px;
+
+
+
+
+
+
+
+  }
+  .timetable-head{
+
+    display: grid;
+    width: 120%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 10px;
+    padding: 40px 20px;
+    padding-bottom: 0;
+
+
+
+
+
+
+
+  }
+}
+.table-field{
+
+  height: 65px;
+  box-shadow: 1px 1px 5px rgb(177, 177, 177);
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+}
+.table-head{
+  height: 65px;
+  box-shadow: 1px 1px 5px rgb(177, 177, 177);
+  border-radius: 5px;
+  border: none;
+  background-color: $primary-color;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 20px;
+}
+.drop-list{
+  width: 12%;
+    margin-left: 200px;
+    margin-top: 42px;
+    padding: 40px;
+    background-color: white;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    box-shadow: 1px 1px 5px grey;
+}

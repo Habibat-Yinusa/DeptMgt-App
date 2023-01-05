@@ -1,0 +1,107 @@
+<div class="wrapper">
+  <mat-tab-group>
+    <mat-tab [label]="level.level" *ngFor="let level of levelList">
+      <div class="tab-wrapper" style="display: flex">
+        <div class="time">
+          <div class="table-head">TIME</div>
+          <div class="table-head">9AM - 11AM</div>
+          <div class="table-head">11AM - 1PM</div>
+          <div class="table-head">2PM - 4PM</div>
+          <div class="table-head">4PM - 6PM</div>
+        </div>
+
+        <div>
+          <div class="timetable-head">
+            <div class="table-head">Monday</div>
+            <div class="table-head">Tuesday</div>
+            <div class="table-head">Wednesday</div>
+            <div class="table-head">Thursday</div>
+            <div class="table-head">Friday</div>
+          </div>
+          <div>
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="done"
+              [cdkDropListConnectedTo]="[todoList]"
+              (cdkDropListDropped)="drop($event)"
+              class="timetable"
+            >
+              <div
+                class="table-field"
+                *ngFor="let item of done"
+                cdkDrag
+                cdkDrop
+              >
+                {{ item }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DRAG -->
+        <div
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[doneList]"
+          class="drop-list"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div *ngFor="let item of todo" cdkDrag cdkDrop>
+            {{ item }}
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<!-- <div class="timetable">
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+  <div class="table-field"></div>
+</div> -->
+
+<!-- <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div>
+          <div class="table-field"></div> -->

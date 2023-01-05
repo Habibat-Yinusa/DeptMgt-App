@@ -1,0 +1,28 @@
+@import "../../../../../variable.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  p {
+    text-align: center;
+    color: $primary-color;
+    // width: 50%;
+    font-size: 14px;
+    font-style: italic;
+    margin-bottom: 5%;
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: right;
+}
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  mat-form-field {
+    margin: 0 10px;
+  }
+}
+

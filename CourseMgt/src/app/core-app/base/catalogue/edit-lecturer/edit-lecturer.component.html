@@ -1,0 +1,38 @@
+<div class="wrapper">
+  <header>
+    <p>Fill and add a lecturers details here</p>
+    <mat-icon class="mat-18">close</mat-icon>
+  </header>
+  <form [formGroup]="form">
+    <mat-form-field class="title" appearance="outline">
+      <mat-label>Title</mat-label>
+      <input formControlName="title" matInput type="text" />
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: space-between">
+      <mat-form-field
+        style="width: 47%; display: inline-block"
+        appearance="outline"
+      >
+        <mat-label>First Name</mat-label>
+        <input formControlName="fname" matInput type="text" />
+      </mat-form-field>
+
+      <mat-form-field
+        style="width: 47%; display: inline-block"
+        appearance="outline"
+      >
+        <mat-label>Middle Name</mat-label>
+        <input formControlName="mname" matInput type="text" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input formControlName="lname" matInput type="text" />
+    </mat-form-field>
+  </form>
+  <div class="btn-container">
+    <button mat-flat-button color="primary" (click)="save()">Save</button>
+  </div>
+</div>

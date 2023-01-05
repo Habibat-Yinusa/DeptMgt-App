@@ -1,0 +1,34 @@
+<div class="wrapper">
+  <div class="container">
+    <img src="../../assets/user_icon-removebg-preview.png" alt="" />
+    <form [formGroup]="loginForm">
+      <input matInput type="text" formControlName="email" placeholder="Email" />
+
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+    </form>
+    <div class="password-check">
+      <div class="checkbox">
+        <input type="checkbox" />
+        <p>Remember me</p>
+      </div>
+      <p>Forgot Password?</p>
+    </div>
+    <div class="errormsg">{{ errmsg }}</div>
+    <button
+      mat-flat-button
+      class="login"
+      [disabled]="loginForm.invalid"
+      (click)="userLogin()"
+    >
+      LOGIN
+    </button>
+    <button class="signup" routerLink="signup">
+      Don't have an account? Sign Up
+    </button>
+  </div>
+</div>

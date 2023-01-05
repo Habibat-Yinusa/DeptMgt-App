@@ -1,0 +1,69 @@
+<mat-sidenav-container>
+  <!-- <app-header></app-header> -->
+  <mat-sidenav mode="side" opened>
+    <div class="title">Course Management</div>
+
+    <div class="level-buttons">
+      <!-- dashboard -->
+      <div
+        class="menu-link"
+        routerLinkActive="activeLink"
+        routerLink="/app/dashboard"
+      >
+        <mat-icon class="icon">dashboard</mat-icon>
+        <span>Dashboard</span>
+      </div>
+
+      <!-- report -->
+      <div
+        routerLink="/app/report"
+        class="menu-link"
+        routerLinkActive="activeLink"
+      >
+        <mat-icon class="icon">dns</mat-icon>
+        <span>Report</span>
+      </div>
+
+      <!-- level -->
+
+      <div
+        style="margin-top: 20px"
+        class="menu-link"
+        routerLinkActive="activeLink"
+        routerLink="/app/level"
+      >
+        <mat-icon class="icon">123</mat-icon>
+        <span>Level</span>
+      </div>
+
+      <!-- courses -->
+      <div class="menu-link" routerLinkActive="activeLink" routerLink="course">
+        <mat-icon class="icon">subject</mat-icon>
+        <span>Courses</span>
+      </div>
+
+      <!-- time table -->
+      <div
+        class="menu-link"
+        routerLinkActive="activeLink"
+        routerLink="timetable"
+      >
+        <mat-icon class="icon">subject</mat-icon>
+        <span>Time Table</span>
+      </div>
+
+      <!-- settings -->
+      <div
+        style="margin-top: 20px"
+        class="menu-link"
+        routerLinkActive="activeLink"
+        routerLink="catalogue"
+      >
+        <mat-icon class="icon">settings</mat-icon>
+        <span>Settings</span>
+      </div>
+    </div>
+  </mat-sidenav>
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

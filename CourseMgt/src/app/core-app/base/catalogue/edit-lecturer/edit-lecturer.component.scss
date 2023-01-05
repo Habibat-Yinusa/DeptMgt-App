@@ -1,0 +1,26 @@
+.wrapper{
+
+  header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field{
+      width: 100%;
+    }
+
+    .title{
+      width: 40%;
+    }
+  }
+
+  .btn-container{
+    display: flex;
+    justify-content: right;
+  }
+}

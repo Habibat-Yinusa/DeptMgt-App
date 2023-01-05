@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <div class="header">
+    <p>Fill this form to register a course</p>
+    <mat-icon style="cursor: pointer" color="primary" (click)="close()"
+      >close</mat-icon
+    >
+  </div>
+  <form [formGroup]="form">
+    <mat-form-field class="code" appearance="outline">
+      <mat-label>Course Code</mat-label>
+      <input formControlName="code" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field class="code" appearance="outline">
+      <mat-label>Credit Unit</mat-label>
+      <input formControlName="unit" matInput type="number" />
+    </mat-form-field>
+
+    <mat-form-field class="name" appearance="outline">
+      <mat-label>Course Name</mat-label>
+      <input formControlName="name" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field class="name" appearance="outline">
+      <mat-label>Lecturer in Charge</mat-label>
+      <!-- <input formControlName="lecturer" matInput type="text" /> -->
+      <mat-select formControlName="lecturer" matInput type="text">
+        <mat-option>
+          <div matPrefix><mat-icon>search</mat-icon></div>
+          <mat-label>Search by Keyword</mat-label>
+          <input
+            matInput
+            type="text"
+            #searchKey
+            (keyup)="search(searchKey.value)"
+          />
+        </mat-option>
+        <mat-option
+          [value]="
+            fullName.Title +
+            ' ' +
+            fullName.First_name +
+            ' ' +
+            fullName.Middle_name +
+            ' ' +
+            fullName.Last_name
+          "
+          *ngFor="let fullName of lecturerList"
+          >{{
+            fullName.Title +
+              " " +
+              fullName.First_name +
+              " " +
+              fullName.Middle_name +
+              " " +
+              fullName.Last_name
+          }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="code" appearance="outline">
+      <mat-label>Level</mat-label>
+      <mat-select formControlName="level" matInput type="text">
+        <mat-option [value]="level.Level" *ngFor="let level of levels">{{
+          level.Level
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="name" appearance="outline">
+      <mat-label>No of Students</mat-label>
+      <input
+        formControlName="students"
+        matInput
+        type="number"
+        placeholder="0"
+      />
+    </mat-form-field>
+  </form>
+  <div class="btn-wrapper">
+    <button mat-flat-button color="primary" (click)="save()">Register</button>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+{
+  "lecturers-list": [
+    {
+      "id": 1,
+      "title": "Mrs",
+      "fname": "Ummi",
+      "mname": "Olaitan",
+      "lname": "Adams"
+    },
+    {
+      "id": 2,
+      "title": "Miss",
+      "fname": "Grace",
+      "mname": "Chiamaka",
+      "lname": "Nelson"
+    },
+    {
+      "id": 3,
+      "title": "Mr",
+      "fname": "Joseph",
+      "mname": "Prince",
+      "lname": "George"
+    },
+    {
+      "id": 4,
+      "title": "Mrs",
+      "fname": "Blessing",
+      "mname": "Ayomide",
+      "lname": "Okafor"
+    },
+    {
+      "id": 5,
+      "title": "Mr",
+      "fname": "Umar",
+      "mname": "Farooq",
+      "lname": "Muhammad"
+    },
+    {
+      "title": "Queen",
+      "fname": "Habibat",
+      "mname": "Ohunene",
+      "lname": "Yinusa",
+      "id": 6
+    }
+  ]
+}

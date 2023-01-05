@@ -1,0 +1,84 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+$CourseMgt-custom:(
+  // A500: orange,
+  // A700: blue
+  50: #ffffff,
+  100: #dde6f3,
+  200: #b4c9e4,
+  300: #7fa3d1,
+  400: rgb(250, 173, 31),
+  500: #5282c1,
+  600: #4072b4,
+  700: #242440fa,
+  800: #ff8c00,
+  900: #4c4237,
+  A100: #ffffff,
+  A200: #dde6f3,
+  A400: rgb(250, 173, 31),
+  A700: #242440fa,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,)
+
+
+);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$CourseMgt-primary: mat.define-palette($CourseMgt-custom, A700);
+$CourseMgt-accent: mat.define-palette($CourseMgt-custom, A400);
+$CourseMgt-warn: mat.define-palette(mat.$red-palette);
+
+// The warn palette is optional (defaults to red).
+// $CourseMgt-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$CourseMgt-theme: mat.define-light-theme((
+  color: (
+    primary: $CourseMgt-primary,
+    accent: $CourseMgt-accent,
+    warn: $CourseMgt-warn
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+ @include mat.all-component-themes($CourseMgt-theme);
+
+body{
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+table{
+  font-size: 12px !important;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  font-size: 12px !important;
+}

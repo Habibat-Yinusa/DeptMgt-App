@@ -28,7 +28,7 @@ export class lecturer {
   lastname?: string;
 }
 export class level {
-  level?: number;
+  level?: string;
   levelAdviser?: string;
 }
 
@@ -36,7 +36,7 @@ export class newCourse {
   code?: string;
   name?: string;
   unit?: string;
-  level?: number;
+  level?: string;
   lecturer?: string;
   student_no?: string;
 }

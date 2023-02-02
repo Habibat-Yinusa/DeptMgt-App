@@ -30,7 +30,7 @@ export class LevelComponent implements OnInit {
     private app: DataService
   ) {
     this.form = this.fb.group({
-      level: [, Validators.required],
+      level: [ '', Validators.required],
       LA: ['', Validators.required],
     });
   }

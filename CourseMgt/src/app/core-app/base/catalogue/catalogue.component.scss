@@ -98,6 +98,24 @@
     }
   }
 
+    .edit-btn{
+
+      margin-right: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: $secondary-color;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .delete-btn{
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: $warn-color;
+      cursor: pointer;
+
+    }
+
     .user-profile{
 
       .user-data{

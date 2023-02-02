@@ -89,14 +89,16 @@ export class CourseComponent implements OnInit {
           this.app.postCourse(this.payload).subscribe({
             next: (res) => {
               this.getCourses();
+              console.log(this.courses, 'what i sent');
+              localStorage.setItem('courses', JSON.stringify(this.courses));
             },
           });
 
           // this.courses.push(res.value);
-          console.log(this.courses, 'what i sent');
+
           // this.dataSource = new MatTableDataSource(this.courses);
           // this.dataSource.paginator = this.paginator;
-          localStorage.setItem('courses', JSON.stringify(this.courses));
+
         }
       });
   }
@@ -160,7 +162,7 @@ export class CourseComponent implements OnInit {
             this.payload.code = ' ';
             this.payload.name = ' ';
             this.payload.unit = ' ';
-            this.payload.level = 0;
+            this.payload.level = ' ';
             this.payload.lecturer = ' ';
             this.payload.student_no = ' ';
 

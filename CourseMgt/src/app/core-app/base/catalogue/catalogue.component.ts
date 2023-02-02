@@ -48,7 +48,7 @@ export default class CatalogueComponent implements OnInit {
     let userDetails = localStorage.getItem('loggedUser');
     if (userDetails) {
       this.userInfo = JSON.parse(userDetails);
-      console.log(this.userInfo);
+      console.log(this.userInfo, 'loggedin user');
     }
 
     // this.form.get('name')?.setValue(this.data.name);
@@ -60,6 +60,7 @@ export default class CatalogueComponent implements OnInit {
     // this.form.get('students')?.setValue(this.data.students);
   }
 
+  //LECTURERS
   getGroup() {
     this.app.getLecturer().subscribe({
       next: (res) => {
@@ -140,6 +141,14 @@ export default class CatalogueComponent implements OnInit {
     });
   }
 
+  delete(id: any) {
+    // alert('are you sure you want to delete this course?');
+    this.groupList.splice(id, 1);
+    this.dataSource = new MatTableDataSource(this.groupList);
+    this.dataSource.paginator = this.paginator;
+    // localStorage.setItem('groupList', JSON.stringify(this.groupList));
+  }
+
   search(val: string) {
     this.dataSource.filter = val;
   }
@@ -158,6 +167,8 @@ export default class CatalogueComponent implements OnInit {
   //     }
   //   }
   // }
+
+  //USER PROFILE
   picture() {
     let selectedImg = document.getElementById('myFile') as HTMLInputElement;
     if (selectedImg) {

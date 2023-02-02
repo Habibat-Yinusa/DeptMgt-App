@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "CourseMgt"
+  "defaultProject": "CourseMgt",
+  "cli": {
+    "analytics": "838a6491-1a49-47cb-921d-ed9caa57fbfc"
+  }
 }

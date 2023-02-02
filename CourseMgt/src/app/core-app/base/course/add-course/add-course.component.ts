@@ -56,9 +56,7 @@ export class AddCourseComponent implements OnInit {
       next: (res) => {
         this.lecturerList = res;
         console.log('from db', this.lecturerList);
-        // console.log(this.lecturerList[0]);
-        // this.lecturers = JSON.parse(this.groupList)
-        // this.dataSource = new MatTableDataSource(this.groupList);
+
       },
       error: (err) => {},
     });
@@ -69,8 +67,7 @@ export class AddCourseComponent implements OnInit {
     this.app.getLevels().subscribe({
       next: (res) => {
         this.levels = res;
-        // console.log(this.levelDetails, 'levelDetails');
-        // this.levelArray.push(this.levelDetails);
+
         console.log(this.levels, 'levelArray');
       },
     });

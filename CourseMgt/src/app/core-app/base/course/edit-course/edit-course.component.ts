@@ -23,10 +23,10 @@ export class EditCourseComponent implements OnInit {
     private app: DataService
   ) {
     this.form = this.fb.group({
-      code: [this.data.Course_code, Validators.required],
-      name: [this.data.Course_name, Validators.required],
-      level: [this.data.Level.toString(), Validators.required],
-      unit: [this.data.Credit_unit, Validators.required],
+      code: [this.data.Course_Code, Validators.required],
+      name: [this.data.Course_Name, Validators.required],
+      level: [this.data.Level, Validators.required],
+      unit: [this.data.Credit_Unit, Validators.required],
       lecturer: [this.data.Lecturer, Validators.required],
       students: [this.data.Students_No, Validators.required],
     });

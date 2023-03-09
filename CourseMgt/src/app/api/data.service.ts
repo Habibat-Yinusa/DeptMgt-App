@@ -77,6 +77,12 @@ export class DataService {
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
+  deleteLecturer(id: number):Observable<any> {
+    return this.http
+    .delete<any>(this.testurl + `/lecturers/${id}`)
+    .pipe(catchError((err) => this.errorHandler(err)))
+  }
+
   //level details
   postLevel(payload: any): Observable<any> {
     return this.http
@@ -88,10 +94,16 @@ export class DataService {
       .get<any>(this.testurl + '/levels')
       .pipe(catchError((err) => this.errorHandler(err)));
   }
-  getLevelCourse(id: number): Observable<any> {
+  //to get all courses per level
+  getLevelCourses(id: number): Observable<any> {
     return this.http
       .get<any>(this.testurl + `/levels/${id}`)
       .pipe(catchError((err) => this.errorHandler(err)));
+  }
+  deleteLevel(id: number): Observable<any> {
+    return this.http
+    .delete<any>(this.testurl + `/levels/${id}`)
+    .pipe(catchError((err) => this.errorHandler(err)))
   }
 
   //   COURSE
@@ -117,6 +129,14 @@ export class DataService {
       .put<any>(this.testurl + `/courses/${id}`, payload)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
+
+  deleteCourse( id:number): Observable<any> {
+    return this.http
+    .delete<any>(this.testurl + `/courses/${id}`)
+    .pipe(catchError((err) => this.errorHandler(err)))
+  }
+
+
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(() => error || 'Server Error');

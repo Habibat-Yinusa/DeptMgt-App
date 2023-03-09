@@ -1,3 +1,4 @@
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { newLecturer } from './../../../model/data';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -31,7 +32,8 @@ export default class CatalogueComponent implements OnInit {
   groupList: any[] = [];
   payload = new newLecturer();
   lecturers: any;
-  constructor(private dialog: MatDialog, private app: DataService) {}
+  successMsg: any;
+  constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getGroup();
@@ -65,9 +67,6 @@ export default class CatalogueComponent implements OnInit {
     this.app.getLecturer().subscribe({
       next: (res) => {
         this.groupList = res;
-        console.log('from db', this.groupList);
-        console.log(this.groupList[0]);
-        // this.lecturers = JSON.parse(this.groupList)
         this.dataSource = new MatTableDataSource(this.groupList);
         this.dataSource.paginator = this.paginator;
       },
@@ -92,10 +91,11 @@ export default class CatalogueComponent implements OnInit {
 
           console.log(this.payload, 'payload');
           this.app.postLecturer(this.payload).subscribe({
-            next: (el) => {
-              console.log(el);
+            next: (res) => {
+              console.log(res);
+            this.getGroup();
 
-              this.getGroup();
+            this.snackbar.open(res.message, 'Dismiss',{ duration: 4000})
             },
           });
         }
@@ -104,7 +104,6 @@ export default class CatalogueComponent implements OnInit {
   }
 
   editLecturer(id: any) {
-    console.log(id, 'id');
 
     let dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '30%';
@@ -114,25 +113,23 @@ export default class CatalogueComponent implements OnInit {
     this.app.getSingleLecturer(id).subscribe({
       next: (res) => {
         dialogConfig.data = res[0];
-        console.log(dialogConfig.data, 'data');
 
         this.dialog
           .open(AddLecturerComponent, dialogConfig)
           .afterClosed()
           .subscribe((res: any) => {
             if (res) {
-              // this.payload.id = id;
+
               this.payload.title = res.value.title;
               this.payload.firstname = res.value.fname;
               this.payload.middlename = res.value.mname;
               this.payload.lastname = res.value.lname;
-              // this.payload = res.value;
-
-              console.log(this.payload, 'payload');
               this.app.editLecturer(id, this.payload).subscribe({
-                next: (el) => {
+                next: (res) => {
                   this.getGroup();
-                  // this.dataSource = new MatTableDataSource(this.groupList);
+                  this.snackbar.open(res.message, 'Dismiss',{
+                    duration: 4000
+                  })
                 },
               });
             }
@@ -141,12 +138,29 @@ export default class CatalogueComponent implements OnInit {
     });
   }
 
-  delete(id: any) {
-    // alert('are you sure you want to delete this course?');
-    this.groupList.splice(id, 1);
-    this.dataSource = new MatTableDataSource(this.groupList);
-    this.dataSource.paginator = this.paginator;
-    // localStorage.setItem('groupList', JSON.stringify(this.groupList));
+  // delete(id: any) {
+  //   // alert('are you sure you want to delete this course?');
+  //   this.groupList.splice(id, 1);
+  //   this.dataSource = new MatTableDataSource(this.groupList);
+  //   this.dataSource.paginator = this.paginator;
+  //   // localStorage.setItem('groupList', JSON.stringify(this.groupList));
+  // }
+
+  delete(id: number) {
+    this.app.deleteLecturer(id).subscribe(
+      (res) => {
+        console.log(res.message);
+        this.successMsg = res.message;
+        console.log(this.successMsg);
+
+        this.snackbar.open(res.message, 'Dismiss',{
+          duration: 4000
+        })
+        this.getGroup()
+        // console.log(res.message, 'msg');
+
+
+        })
   }
 
   search(val: string) {

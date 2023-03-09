@@ -114,7 +114,7 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td align="right" mat-cell *matCellDef="let element; let i = index">
         <div class="edit-btn" (click)="edit(element.Id)">Edit</div>
-        <div class="delete-btn" (click)="delete(i)">Delete</div>
+        <div class="delete-btn" (click)="delete(element.Id)">Delete</div>
       </td>
     </ng-container>
 

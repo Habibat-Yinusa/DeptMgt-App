@@ -1,29 +1,29 @@
 <header style="display: flex; justify-content: space-between">
-  <h2>{{ data }} Level</h2>
+  <h2>{{ data.level }} Level</h2>
 
   <mat-icon style="cursor: pointer" color="primary" (click)="close()"
     >close</mat-icon
   >
 </header>
 
-<div class="unregistered-notice" *ngIf="tableSource.length == 0">
+<div class="unregistered-notice" *ngIf="data.length == 0">
   <p>No course registered yet.</p>
   <img
     src="./../../../../../assets/undraw_blank_canvas_re_2hwy.svg"
     alt="blank data"
-    style="width: 20%; margin-top: 3%"
+    style="width: 18%; margin-top: 3%"
   />
 </div>
 
-<table mat-table *ngIf="tableSource.length >= 1" [dataSource]="dataSource">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+<table mat-table *ngIf="data.length >= 1" [dataSource]="dataSource">
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef>Course Code</th>
+    <td mat-cell *matCellDef="let element">{{ element.Course_Code }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="code">
-    <th mat-header-cell *matHeaderCellDef>Code</th>
-    <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Course Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.Course_Name }}</td>
   </ng-container>
 
   <ng-container matColumnDef="unit">
@@ -33,13 +33,13 @@
       mat-cell
       *matCellDef="let element"
     >
-      {{ element.unit }}
+      {{ element.Credit_Unit }}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="lecturer">
     <th mat-header-cell *matHeaderCellDef>Lecturer</th>
-    <td mat-cell *matCellDef="let element">{{ element.lecturer }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.Lecturer }}</td>
   </ng-container>
   <ng-container matColumnDef="students">
     <th mat-header-cell *matHeaderCellDef>No of Students</th>
@@ -48,7 +48,7 @@
       mat-cell
       *matCellDef="let element"
     >
-      {{ element.students }}
+      {{ element.Students_No }}
     </td>
   </ng-container>
 

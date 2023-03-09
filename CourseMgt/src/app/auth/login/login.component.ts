@@ -81,6 +81,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/app/level']);
       },
       error: (err) => {
+        console.log(err);
+
         this.errmsg = err.error;
         setTimeout(() => {
           this.errmsg = '';

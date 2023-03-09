@@ -9,16 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   constructor() {}
   department: any;
-  newDepartment: any;
-  username: any;
   userName: any;
+  loggedUser: any;
+  user: any;
   ngOnInit(): void {
-    this.department = localStorage.getItem('department');
-    this.username = localStorage.getItem('username');
+    this.loggedUser = localStorage.getItem('loggedUser');
 
-    if (this.department && this.username) {
-      this.newDepartment = JSON.parse(this.department);
-      this.userName = JSON.parse(this.username);
+    if (this.loggedUser) {
+      this.user = JSON.parse(this.loggedUser);
+      this.department = this.user.department;
+      this.userName = this.user.username;
+
     }
   }
 }

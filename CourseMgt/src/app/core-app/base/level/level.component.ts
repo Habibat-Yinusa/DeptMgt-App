@@ -1,10 +1,11 @@
+import { level } from './../../../model/data';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService } from 'src/app/api/data.service';
-import { level } from 'src/app/model/data';
+// import { level } from 'src/app/model/data';
 import { ViewCoursesComponent } from './view-courses/view-courses.component';
 
 @Component({
@@ -16,14 +17,13 @@ import { ViewCoursesComponent } from './view-courses/view-courses.component';
 // @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 export class LevelComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
-  level: any;
   LA: any;
-  // id: number = 0;
   levelArray: any[] = [];
   form: FormGroup;
   courses: any[] = [];
   payload = new level();
   levelDetails = { level: '', adviser: '' };
+  errmsg: any;
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -36,43 +36,31 @@ export class LevelComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getlevels();
-    let fromStorage = localStorage.getItem('levels');
-    if (fromStorage) {
-      this.levelArray = JSON.parse(fromStorage);
-    }
   }
 
   submit() {
-    console.log(this.form.value);
-    // this.levelDetails.id = this.id++;
-
-    // this.levelDetails.level = this.form.value.level;
-    // this.levelDetails.adviser = this.form.value.LA;
-
-    // this.levelArray.push(this.levelDetails);
-    // localStorage.setItem('levels', JSON.stringify(this.levelArray));
-
-    // console.log(this.levelArray);
     this.payload.level = this.form.value.level;
     this.payload.levelAdviser = this.form.value.LA;
     this.app.postLevel(this.payload).subscribe({
       next: (res) => {
         this.getlevels();
       },
+      error: (err) => {
+        this.errmsg = err.error.text;
+        setTimeout(()=>{
+          this.errmsg = ''
+        }, (5000))
+      }
     });
 
     this.form.reset();
     this.reset();
-    console.log(this.levelDetails);
   }
 
   getlevels() {
     this.app.getLevels().subscribe({
       next: (res) => {
         this.levelArray = res;
-        // console.log(this.levelDetails, 'levelDetails');
-        // this.levelArray.push(this.levelDetails);
-        console.log(this.levelArray, 'levelArray');
       },
     });
   }
@@ -80,41 +68,43 @@ export class LevelComponent implements OnInit {
   reset() {
     this.levelDetails = { level: '', adviser: '' };
 
-    // this.form.value.level = '';
-    // this.form.value.LA = '';
+
   }
 
-  delete(i: number) {
-    this.levelArray.splice(i, 1);
-    localStorage.setItem('levels', JSON.stringify(this.levelArray));
+  // delete(i: number) {
+  //   this.levelArray.splice(i, 1);
+  //   localStorage.setItem('levels', JSON.stringify(this.levelArray));
+  // }
+  delete(id: number) {
+    this.app.deleteLevel(id).subscribe(
+    res => {
+      this.getlevels();
+    }
+  )
   }
 
   viewCourse(Id: number) {
     let dialogConfig = new MatDialogConfig();
-    dialogConfig.minWidth = '40%';
+    dialogConfig.minWidth = '50%';
     dialogConfig.minHeight = '30vh';
     dialogConfig.disableClose = false;
-    // dialogConfig.data = val;
 
-    this.app.getLevelCourse(Id).subscribe({
+    this.app.getLevelCourses(Id).subscribe({
       next: (res) => {
         dialogConfig.data = res;
-      },
-    });
-    this.dialog
+
+        this.dialog
       .open(ViewCoursesComponent, dialogConfig)
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
           console.log('successful!');
 
-          // this.courses.push(res.value);
-          // console.log(this.courses, 'what i sent');
-          // this.dataSource = new MatTableDataSource(this.courses);
-          // this.dataSource.paginator = this.paginator;
-          // localStorage.setItem('courses', JSON.stringify(this.courses));
         }
       });
+      },
+    });
+
     let fromStorage = localStorage.getItem('courses');
     if (fromStorage) {
       this.courses = JSON.parse(fromStorage);

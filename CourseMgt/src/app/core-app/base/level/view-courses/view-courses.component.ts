@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, _MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-view-courses',
@@ -11,35 +11,25 @@ import { MatTableDataSource } from '@angular/material/table';
 // @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 export class ViewCoursesComponent implements OnInit {
   displayedColumns: string[] = ['code', 'name', 'unit', 'lecturer', 'students'];
-  courses: any;
-  dataSource: any;
-  tableSource: any;
-  levelArrayFromStorage: any[] = [];
-  currentLevel: any;
+  dataSource = new MatTableDataSource<any>();
+
   constructor(
     private dialogref: MatDialogRef<ViewCoursesComponent>,
 
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    console.log(this.data, 'data');
+
+  }
 
   ngOnInit(): void {
-    let levels = localStorage.getItem('levels');
-    if (levels) {
-      this.levelArrayFromStorage = JSON.parse(levels);
-      console.log(this.levelArrayFromStorage);
 
-      this.currentLevel = this.levelArrayFromStorage.forEach((el) => {
-        return el.level;
-      });
-      console.log(this.currentLevel, 'currentlevel');
-    }
 
-    let tableData = localStorage.getItem('datasource');
-    if (tableData) {
-      this.tableSource = JSON.parse(tableData);
-      this.dataSource = new MatTableDataSource<any>(this.tableSource);
-    }
+      this.dataSource =new MatTableDataSource(this.data)
+
   }
+
+
   close() {
     this.dialogref.close();
   }

@@ -34,6 +34,7 @@ import { AddLecturerComponent } from './catalogue/add-lecturer/add-lecturer.comp
 import { ViewCoursesComponent } from './level/view-courses/view-courses.component';
 import { EditLecturerComponent } from './catalogue/edit-lecturer/edit-lecturer.component';
 import { EditCourseComponent } from './course/edit-course/edit-course.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { EditCourseComponent } from './course/edit-course/edit-course.component'
     MatPaginatorModule,
     MatTabsModule,
     DragDropModule,
+    MatSnackBarModule
     // MAT_DIALOG_DATA
     // FlatTreeControl,
     // MatTreeFlatDataSource,

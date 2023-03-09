@@ -29,6 +29,7 @@
       Add Level
     </button>
   </form>
+  <div class="error">{{ errmsg }}</div>
   <div class="line"></div>
   <div
     *ngIf="levelArray.length == 0"
@@ -56,7 +57,7 @@
           <button color="accent" (click)="viewCourse(item.Id)" mat-button>
             View Courses
           </button>
-          <button mat-button color="warn" (click)="delete(i)">Delete</button>
+          <button mat-button color="warn" (click)="delete(item.Id)">Delete</button>
         </div>
       </div>
     </div>

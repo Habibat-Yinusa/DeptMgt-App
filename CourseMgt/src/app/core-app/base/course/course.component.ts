@@ -6,6 +6,7 @@ import { DataService } from 'src/app/api/data.service';
 import { newCourse } from 'src/app/model/data';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
+import {MatSnackBar} from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-course',
@@ -37,16 +38,16 @@ export class CourseComponent implements OnInit {
   lecturerList: any[] = [];
   payload = new newCourse();
 
-  constructor(private dialog: MatDialog, private app: DataService) {}
+  constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) {}
   ngOnInit(): void {
     this.getCourses();
-    this.dataSource = new MatTableDataSource(this.courses);
-    let fromStorage = localStorage.getItem('courses');
-    if (fromStorage) {
-      this.courses = JSON.parse(fromStorage);
-      this.dataSource = new MatTableDataSource(this.courses);
-      // this.dataSource.paginator = this.paginator;
-    }
+    // this.dataSource = new MatTableDataSource(this.courses);
+    // let fromStorage = localStorage.getItem('courses');
+    // if (fromStorage) {
+    //   this.courses = JSON.parse(fromStorage);
+    //   this.dataSource = new MatTableDataSource(this.courses);
+    //   // this.dataSource.paginator = this.paginator;
+    // }
 
     let levels = localStorage.getItem('levels');
     if (levels) {
@@ -89,16 +90,12 @@ export class CourseComponent implements OnInit {
           this.app.postCourse(this.payload).subscribe({
             next: (res) => {
               this.getCourses();
-              console.log(this.courses, 'what i sent');
+              this.snackbar.open(res.message, 'Dismiss', {
+                duration: 4000
+              })
               localStorage.setItem('courses', JSON.stringify(this.courses));
             },
           });
-
-          // this.courses.push(res.value);
-
-          // this.dataSource = new MatTableDataSource(this.courses);
-          // this.dataSource.paginator = this.paginator;
-
         }
       });
   }
@@ -137,13 +134,13 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  delete(id: any) {
-    // alert('are you sure you want to delete this course?');
-    this.courses.splice(id, 1);
-    this.dataSource = new MatTableDataSource(this.courses);
-    this.dataSource.paginator = this.paginator;
-    localStorage.setItem('courses', JSON.stringify(this.courses));
-  }
+  // delete(id: any) {
+  //   // alert('are you sure you want to delete this course?');
+  //   this.courses.splice(id, 1);
+  //   this.dataSource = new MatTableDataSource(this.courses);
+  //   this.dataSource.paginator = this.paginator;
+  //   localStorage.setItem('courses', JSON.stringify(this.courses));
+  // }
 
   edit(Id: any) {
     let dialogConfig = new MatDialogConfig();
@@ -154,7 +151,7 @@ export class CourseComponent implements OnInit {
     this.app.getSingleCourses(Id).subscribe({
       next: (res) => {
         dialogConfig.data = res;
-        console.log(dialogConfig.data, 'dialog data');
+        // console.log(dialogConfig.data, 'dialog data');
         this.dialog
           .open(EditCourseComponent, dialogConfig)
           .afterClosed()
@@ -167,7 +164,6 @@ export class CourseComponent implements OnInit {
             this.payload.student_no = ' ';
 
             this.getCourses();
-            console.log('edit successful');
 
             // if (res) {
             //   for (let i = 0; i < this.courses.length; i++) {
@@ -184,6 +180,24 @@ export class CourseComponent implements OnInit {
           });
       },
     });
+  }
+
+  //DELETE A COURSE
+  delete(Id:any) {
+    console.log(Id, 'id');
+
+    this.app.deleteCourse(Id).subscribe(
+      (res) => {
+        console.log(res);
+
+        this.snackbar.open(res.message, 'Dismiss',{
+          duration: 4000
+        })
+        this.getCourses()
+        console.log(res.message, 'msg');
+
+      }
+    )
   }
 
   search(val: string) {

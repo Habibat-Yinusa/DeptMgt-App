@@ -75,12 +75,22 @@ span{
     padding-right: 0;
     width:auto;
 
+    .right p {
+      text-transform: capitalize;
+    }
+
     }
 
   }
 }
 
 
+}
+.error{
+  text-align: center;
+  color: $warn-color;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
 .btns{

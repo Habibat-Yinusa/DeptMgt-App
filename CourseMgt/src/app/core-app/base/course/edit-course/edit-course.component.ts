@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { newCourse } from './../../../../model/data';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,9 +21,11 @@ export class EditCourseComponent implements OnInit {
     private dialogref: MatDialogRef<EditCourseComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private app: DataService
+    private app: DataService, private snackbar: MatSnackBar
   ) {
     this.form = this.fb.group({
+
+
       code: [this.data.Course_Code, Validators.required],
       name: [this.data.Course_Name, Validators.required],
       level: [this.data.Level, Validators.required],
@@ -30,34 +33,19 @@ export class EditCourseComponent implements OnInit {
       lecturer: [this.data.Lecturer, Validators.required],
       students: [this.data.Students_No, Validators.required],
     });
+
   }
 
   ngOnInit(): void {
     this.getGroup();
     this.getlevels();
 
-    // let levels = localStorage.getItem('levels');
-    // if (levels) {
-    //   this.levels = JSON.parse(levels);
-    // }
-    // let lecturerList = localStorage.getItem('lecturerList');
-    // if (lecturerList) {
-    //   this.lecturerList = JSON.parse(lecturerList);
-    // }
-
-    // if (this.data) {
-    //   this.setData();
-    // }
-    // else {
-    //   this.setId();
-    // }
   }
   // GET LECTURERS FROM DATABASE
   getGroup() {
     this.app.getLecturer().subscribe({
       next: (res) => {
         this.lecturerList = res;
-        console.log('from db', this.lecturerList);
       },
       error: (err) => {},
     });
@@ -68,16 +56,10 @@ export class EditCourseComponent implements OnInit {
     this.app.getLevels().subscribe({
       next: (res) => {
         this.levels = res;
-        // this.form.get('level')?.setValue(this.data.Level);
-        console.log(this.levels, 'levelArray');
+
       },
     });
   }
-
-  // setId() {
-  //   let id = Math.random() * 99999999;
-  //   this.form.get('id')?.setValue(id.toString());
-  // }
 
   setData() {
     this.form.get('name')?.setValue(this.data.name);
@@ -108,10 +90,13 @@ export class EditCourseComponent implements OnInit {
     this.payload.lecturer = this.form.get('lecturer')?.value;
     this.payload.student_no = this.form.get('students')?.value;
 
-    console.log(this.payload, 'edited payload');
     this.app.editCourse(this.payload, Id).subscribe({
       next: (res) => {
         this.dialogref.close(this.form);
+        this.snackbar.open(res.message, 'Dismiss', {
+          duration: 4000
+        })
+
       },
     });
   }

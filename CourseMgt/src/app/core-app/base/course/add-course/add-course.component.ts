@@ -35,14 +35,14 @@ export class AddCourseComponent implements OnInit {
     this.getGroup();
     this.getlevels();
 
-    let levels = localStorage.getItem('levels');
-    if (levels) {
-      this.levels = JSON.parse(levels);
-    }
-    let lecturerList = localStorage.getItem('lecturerList');
-    if (lecturerList) {
-      this.lecturerList = JSON.parse(lecturerList);
-    }
+    // let levels = localStorage.getItem('levels');
+    // if (levels) {
+    //   this.levels = JSON.parse(levels);
+    // }
+    // let lecturerList = localStorage.getItem('lecturerList');
+    // if (lecturerList) {
+    //   this.lecturerList = JSON.parse(lecturerList);
+    // }
 
     if (this.data) {
       this.setData();
@@ -55,7 +55,6 @@ export class AddCourseComponent implements OnInit {
     this.app.getLecturer().subscribe({
       next: (res) => {
         this.lecturerList = res;
-        console.log('from db', this.lecturerList);
 
       },
       error: (err) => {},
@@ -68,7 +67,6 @@ export class AddCourseComponent implements OnInit {
       next: (res) => {
         this.levels = res;
 
-        console.log(this.levels, 'levelArray');
       },
     });
   }

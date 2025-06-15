@@ -1,0 +1,145 @@
+@import '../../../../variable.scss';
+
+.wrapper {
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+
+  mat-form-field {
+    width: 40%;
+  }
+
+  button {
+    height: 45px;
+    position: relative;
+    top: 7px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: $primary-color;
+  }
+
+  span {
+    font-size: 12px;
+  }
+
+  .line {
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    // margin-left: 50px;
+  }
+
+  .card-wrapper {
+    padding: 40px 0;
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    .head {
+      font-size: 20px;
+      font-weight: 500;
+      color: $primary-color;
+    }
+
+    .level-card {
+      display: flex;
+      font-size: 12px;
+      border-radius: 12px;
+      border: 2px solid #efefef;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      width: 25em;
+
+      .level-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: $primary-color;
+      }
+
+      span {
+        font-weight: 500;
+      }
+
+    }
+  }
+
+
+}
+
+.error {
+  text-align: center;
+  color: $warn-color;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.btns {
+  display: flex;
+  justify-content: right;
+}
+
+.icn {
+  font-size: 18px;
+  color: red;
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+}
+
+.chips {
+  width: 100%;
+  background-color: #efefef;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+
+  .chip {
+    width: fit-content;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 10px;
+    color: #777;
+    background-color: white;
+    white-space: nowrap;
+  }
+
+  .empty{
+    font-size: 10px;
+    padding: 5px;
+    color: #777;
+    white-space: nowrap;
+  }
+}
+
+.eye {
+  position: absolute;
+  right: 2px;
+  background-color: white;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 1px solid #d7d7d7;
+
+  .ic {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary-color;
+  }
+}

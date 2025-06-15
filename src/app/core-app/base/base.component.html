@@ -1,0 +1,61 @@
+<mat-sidenav-container>
+  <!-- <app-header></app-header> -->
+  <mat-sidenav mode="side" opened>
+    <!-- <div class="title">Course Management</div> -->
+    <div class="top">
+      <img src="assets/logo.svg" width="50" alt="">
+      <!-- <div class="logo-name">DeptDash App</div> -->
+    </div>
+
+    <div class="level-buttons">
+      <!-- dashboard -->
+      <div class="menu-link" routerLinkActive="activeLink" routerLink="/app/dashboard">
+        <mat-icon class="icon">dashboard</mat-icon>
+        <span>Dashboard</span>
+      </div>
+
+      <!-- report -->
+      <!-- <div routerLink="/app/report" class="menu-link" routerLinkActive="activeLink">
+        <mat-icon class="icon">dns</mat-icon>
+        <span>Report</span>
+      </div> -->
+
+      <!-- level -->
+      <div class="menu-link" routerLinkActive="activeLink" routerLink="/app/level">
+        <mat-icon class="icon">leaderboard</mat-icon>
+        <span>Level</span>
+      </div>
+
+      <!-- courses -->
+      <div class="menu-link" routerLinkActive="activeLink" routerLink="course">
+        <mat-icon class="icon">subject</mat-icon>
+        <span>Courses</span>
+      </div>
+
+      <!-- time table -->
+      <div class="menu-link" routerLinkActive="activeLink" routerLink="timetable">
+        <mat-icon class="icon">table_rows</mat-icon>
+        <span>Time Table</span>
+      </div>
+
+      <!-- settings -->
+    </div>
+
+    <div class="bottom level-buttons">
+      <div class="menu-link" routerLinkActive="activeLink" routerLink="catalogue">
+        <mat-icon class="icon">settings</mat-icon>
+        <span>Settings</span>
+      </div>
+      <div class="menu-link">
+        <mat-icon class="icon" style="color: red;">logout</mat-icon>
+        <span style="color: red;">Logout</span>
+      </div>
+    </div>
+  </mat-sidenav>
+  <div class="body-bg">
+    <div class="head"><app-header></app-header></div>
+    <div class="body">
+      <div class="main-body"><router-outlet></router-outlet></div>
+    </div>
+  </div>
+</mat-sidenav-container>

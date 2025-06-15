@@ -1,0 +1,57 @@
+<div class="wrapper">
+  <div class="time-table">
+    <div class="days">
+      <ng-container *ngFor="let day of days">
+        <div class="day">{{day}}</div>
+      </ng-container>
+    </div>
+
+    <div class="table-body">
+      <div class="times">
+        <ng-container *ngFor="let time of times">
+          <div class="time">{{time}}</div>
+        </ng-container>
+      </div>
+
+      <div class="tab">
+        <ng-container *ngFor="let item of timeTable; let i = index">
+          <div class="tab-card" cdkDropList [id]=" 'timeTable' + i" [cdkDropListConnectedTo]="idlist" [cdkDropListData]="item.courses" (cdkDropListDropped)="addToTable($event)">
+            <ng-container *ngFor="let card of item.courses">
+              <div class="cos" [ngStyle]="{'color': card.dot, 'background-color': card.dot + '1A'}" cdkDrag>
+                <span>{{card.name}}</span>
+                <mat-icon class="ic red">close</mat-icon>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="options-cover">
+    <div class="options" cdkDropList id="levelCourses" [cdkDropListConnectedTo]="idlist" [cdkDropListData]="levelCourses" (cdkDropListDropped)="backToList($event)">
+      <div>Course List</div>
+      <ng-container *ngFor="let course of levelCourses">
+        <div class="opt-card" cdkDrag>
+          <div class="opt-name" [ngStyle]="{'color': course.dot}">
+            <div class="dot" [ngStyle]="{'background-color': course.dot}"></div>{{course.name}}
+          </div>
+          <div class="opt-subs">
+            <div class="opt-ext">
+              <div class="nm"><mat-icon class="ic">topic</mat-icon> Course: </div>
+              <div class="sb">{{course.course}}</div>
+            </div>
+            <div class="opt-ext">
+              <div class="nm"><mat-icon class="ic">assignment_ind</mat-icon> Lecturer: </div>
+              <div class="sb">{{course.lecturer}}</div>
+            </div>
+            <div class="opt-ext">
+              <div class="nm"> <mat-icon class="ic">leaderboard</mat-icon> Level: </div>
+              <div class="sb">{{course.level}} Level</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

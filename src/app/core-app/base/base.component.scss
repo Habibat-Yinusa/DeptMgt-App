@@ -1,0 +1,122 @@
+@import './../../../variable.scss';
+
+::ng-deep .mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+
+  width: 180px;
+  // height: 100vh;
+  // background-color: $primary-color-shade;
+  background-color: white;
+  border-radius: 0 20px 20px 0;
+  // box-shadow: 1px 1px 5px gray;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    // border-bottom: 1px solid #d7d7d7;
+  }
+
+  .level-buttons {
+    display: flex;
+    // color: $primary-color;
+    flex-direction: column;
+    // padding: 20px;
+    // gap: 20px;
+    margin-top: 30px;
+
+  }
+
+
+}
+
+.menu-link {
+  font-size: 13px;
+  padding: 15px 25px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    transform: scale(105%);
+    color: $primary-color;
+
+    .icon {
+      color: $primary-color;
+    }
+  }
+
+  &.activeLink {
+    // background-color: $primary-color;
+    color: $primary-color;
+    transform: scale(105%);
+    background-color: #0000770f;
+    // padding-left: 20px;
+    // transition: all 0.4s;
+    // border-top-left-radius: 40px;
+    // border-bottom-left-radius: 40px;
+    // margin-left: 15px;
+
+
+    // box-sizing: border-box;
+    .icon {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+}
+
+.icon {
+  font-size: 14px;
+  // background: #777;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 30px;
+  border-top: 1px solid #d7d7d7;
+  width: 96%;
+}
+
+.head {
+  top: 0;
+  position: sticky;
+  background-color: white !important;
+  z-index: 9999;
+}
+
+.body-bg {
+  height: 100vh;
+  background-color: #efefef;
+
+  .body {
+    padding: 20px;
+
+    .main-body {
+      background-color: white;
+      border-radius: 12px;
+      min-height: 88vh;
+    }
+  }
+}

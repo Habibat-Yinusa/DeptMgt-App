@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="top">
+    <img src="assets/logo.svg" width="70" alt="">
+    <div class="logo-name">DeptDash App</div>
+    <div class="logo-subname">Management tool for your Department</div>
+  </div>
+
+  <div class="container">
+    <form [formGroup]="loginForm" class="form">
+      <input class="custom-input" type="text" formControlName="email" placeholder="Email" />
+      <input class="custom-input" type="password" formControlName="password" placeholder="Password" />
+    </form>
+
+    <div class="password-check">
+      <div class="checkbox">
+        <input type="checkbox" />
+        <div>Remember me</div>
+      </div>
+      <div class="forgot">Forgot Password?</div>
+    </div>
+    <div class="error-msg" *ngIf="errmsg">{{errmsg}}</div>
+    <button mat-flat-button class="submit-btn" color="primary" [disabled]="loginForm.invalid" (click)="userLogin()">
+      LOGIN
+    </button>
+  </div>
+  <div class="signup">
+    Don't have an account? <span routerLink="signup">Sign Up</span>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <div class="top">
+    <img src="assets/logo.svg" width="70" alt="">
+    <div class="logo-name">DeptDash App</div>
+    <div class="logo-subname">Management tool for your Department</div>
+  </div>
+
+  <div class="container">
+    <div class="width100%">
+      <div style="font-size: 13px;">Fill in your details to create your account.</div>
+    </div>
+    <form [formGroup]="signUpForm" class="form">
+      <input class="custom-input" type="text" formControlName="username" placeholder="Username" />
+      <div class="group">
+        <input class="custom-input" type="text" formControlName="firstname" placeholder="First Name" />
+        <input class="custom-input" type="text" formControlName="lastname" placeholder="Last Name" />
+      </div>
+      <input class="custom-input" type="text" formControlName="middlename" placeholder="Middle Name" />
+      <input class="custom-input" type="email" formControlName="email" placeholder="Email" />
+      <div class="group">
+        <input class="custom-input" type="text" formControlName="department" placeholder="Department" />
+        <input class="custom-input" type="text" formControlName="faculty" placeholder="Faculty" />
+      </div>
+      <div class="group">
+        <input class="custom-input" type="password" formControlName="password" placeholder="Password" />
+        <input class="custom-input" type="password" formControlName="confirmPassword"
+          placeholder="Confirm Password" />
+      </div>
+
+      <button mat-flat-button class="submit-btn" [disabled]="signUpForm.invalid" (click)="setStorage()" color="primary">
+        Sign Up
+      </button>
+    </form>
+  </div>
+
+  <div class="signup">
+    Already have an account? <span routerLink="">Sign In</span>
+  </div>
+</div>

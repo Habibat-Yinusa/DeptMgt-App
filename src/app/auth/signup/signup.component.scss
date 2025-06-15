@@ -1,0 +1,97 @@
+@import '../../../variable.scss';
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #fafafa;
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .container {
+    border-radius: 12px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+
+    .form {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      min-width: 25em;
+    }
+
+    .forgot {
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .group{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .password-check {
+      width: 100%;
+      display: flex;
+      font-size: 14px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      // color: $secondary-color;
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    .error-msg{
+      font-size: 12px;
+      width: 100%;
+      color: red;
+      text-align: center;
+      background-color: #ff000049;  
+      padding: 5px;
+      border: 1px solid red;
+      border-radius: 8px;
+    }
+  }
+
+  .signup {
+    font-size: 13px;
+
+    span {
+      cursor: pointer;
+      color: $primary-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.custom-input{
+  width: 90% !important;
+}

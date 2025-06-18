@@ -26,12 +26,12 @@ export class EditCourseComponent implements OnInit {
     this.form = this.fb.group({
 
 
-      code: [this.data.Course_Code, Validators.required],
-      name: [this.data.Course_Name, Validators.required],
-      level: [this.data.Level, Validators.required],
-      unit: [this.data.Credit_Unit, Validators.required],
-      lecturer: [this.data.Lecturer, Validators.required],
-      students: [this.data.Students_No, Validators.required],
+      code: [this.data.courseCode, Validators.required],
+      name: [this.data.courseName, Validators.required],
+      level: [this.data.level, Validators.required],
+      unit: [this.data.creditUnit, Validators.required],
+      lecturer: [this.data.lecturer, Validators.required],
+      students: [this.data.studentsNo, Validators.required],
     });
 
   }
@@ -62,13 +62,13 @@ export class EditCourseComponent implements OnInit {
   }
 
   setData() {
-    this.form.get('name')?.setValue(this.data.name);
-    this.form.get('id')?.setValue(this.data.id);
-    this.form.get('code')?.setValue(this.data.code);
-    this.form.get('level')?.setValue(this.data.level);
-    this.form.get('unit')?.setValue(this.data.unit);
+    this.form.get('name')?.setValue(this.data.courseName);
+    this.form.get('id')?.setValue(this.data.courseId);
+    this.form.get('code')?.setValue(this.data.courseCode);
+    this.form.get('level')?.setValue(this.data.level.level);
+    this.form.get('unit')?.setValue(this.data.creditUnit);
     this.form.get('lecturer')?.setValue(this.data.lecturer);
-    this.form.get('students')?.setValue(this.data.students);
+    this.form.get('students')?.setValue(this.data.studentsNo);
 
     // this.form.value.id = this.data.id;
     // this.form.value.code = this.data.code;
@@ -83,12 +83,12 @@ export class EditCourseComponent implements OnInit {
   }
 
   save(Id: any) {
-    this.payload.name = this.form.get('name')?.value;
-    this.payload.code = this.form.get('code')?.value;
-    this.payload.unit = this.form.get('unit')?.value;
+    this.payload.courseName = this.form.get('name')?.value;
+    this.payload.courseCode = this.form.get('code')?.value;
+    this.payload.creditUnit = this.form.get('unit')?.value;
     this.payload.level = this.form.get('level')?.value;
     this.payload.lecturer = this.form.get('lecturer')?.value;
-    this.payload.student_no = this.form.get('students')?.value;
+    this.payload.studentsNo = this.form.get('students')?.value;
 
     this.app.editCourse(this.payload, Id).subscribe({
       next: (res) => {

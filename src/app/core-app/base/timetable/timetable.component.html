@@ -34,12 +34,12 @@
       <ng-container *ngFor="let course of levelCourses">
         <div class="opt-card" cdkDrag>
           <div class="opt-name" [ngStyle]="{'color': course.dot}">
-            <div class="dot" [ngStyle]="{'background-color': course.dot}"></div>{{course.name}}
+            <div class="dot" [ngStyle]="{'background-color': course.dot}"></div>{{course.courseCode}}
           </div>
           <div class="opt-subs">
             <div class="opt-ext">
               <div class="nm"><mat-icon class="ic">topic</mat-icon> Course: </div>
-              <div class="sb">{{course.course}}</div>
+              <div class="sb">{{course.courseName}}</div>
             </div>
             <div class="opt-ext">
               <div class="nm"><mat-icon class="ic">assignment_ind</mat-icon> Lecturer: </div>

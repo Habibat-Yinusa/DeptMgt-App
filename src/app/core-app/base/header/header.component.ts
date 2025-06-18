@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit {
 
     if (this.loggedUser) {
       this.user = JSON.parse(this.loggedUser);
-      this.department = this.user.department;
-      this.userName = this.user.username;
+      this.department = this.user.user.department;
+      this.userName = this.user.user.userName;
 
     }
   }

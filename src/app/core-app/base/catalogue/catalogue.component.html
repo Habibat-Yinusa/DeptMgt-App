@@ -49,35 +49,35 @@
           <ng-container>
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef>Title</th>
-              <td mat-cell *matCellDef="let element">{{ element.Title }}</td>
+              <td mat-cell *matCellDef="let element">{{ element.title }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="firstname">
+            <ng-container matColumnDef="firstName">
               <th mat-header-cell *matHeaderCellDef>First Name</th>
               <td mat-cell *matCellDef="let element">
-                {{ element.First_name }}
+                {{ element.firstName }}
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="middlename">
+            <ng-container matColumnDef="middleName">
               <th mat-header-cell *matHeaderCellDef>Middle Name</th>
               <td mat-cell *matCellDef="let element">
-                {{ element.Middle_name }}
+                {{ element.middleName }}
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="lastname">
+            <ng-container matColumnDef="lastName">
               <th mat-header-cell *matHeaderCellDef>Last Name</th>
               <td mat-cell *matCellDef="let element">
-                {{ element.Last_name }}
+                {{ element.lastName }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="btn">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element,let i = index">
-                <div class="edit-btn" (click)="editLecturer(element.Id)">Edit</div>
-                <div class="delete-btn" (click)="delete(element.Id)">Delete</div>
+                <div class="edit-btn" (click)="editLecturer(element.lecturerId)">Edit</div>
+                <div class="delete-btn" (click)="delete(element.lecturerId)">Delete</div>
               </td>
             </ng-container>
 
@@ -138,13 +138,13 @@
               </div>
 
               <div class="input">
-                <input class="custom-input small" type="text" [value]="userInfo.username" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.firstname" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.middlename" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.lastname" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.email" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.department" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.faculty" />
+                <input class="custom-input small" type="text" [value]="userInfo.user.userName" /><br />
+                <input class="custom-input small" type="text" [value]="userInfo.user.firstName" /><br />
+                <input class="custom-input small" type="text" [value]="userInfo.user.middleName" /><br />
+                <input class="custom-input small" type="text" [value]="userInfo.user.lastName" /><br />
+                <input class="custom-input small" type="text" [value]="userInfo.user.email" /><br />
+                <input class="custom-input small" type="text" [value]="userInfo.user.department" /><br />
+                <input class="custom-input small" type="text" [value]="userInfo.user.faculty" />
               </div>
             </form>
           </div>

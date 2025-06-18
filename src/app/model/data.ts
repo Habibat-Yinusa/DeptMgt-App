@@ -1,21 +1,22 @@
 export class newLecturer {
+  lecturerId?: string;
   title?: string;
-  firstname?: string;
-  middlename?: string;
-  lastname?: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
 }
 
 export class newUser {
-  id?: number;
-  username?: string;
-  firstname?: string;
-  lastname?: string;
-  middlename?: string;
+  userId?: string;
+  userName?: string;
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
   email?: string;
   department?: string;
   faculty?: string;
   password?: string;
-  confirmpassword?: string;
+  confirmPassword?: string;
 }
 export class checkUser {
   email?: string;
@@ -23,9 +24,9 @@ export class checkUser {
 }
 export class lecturer {
   title?: string;
-  firstname?: string;
-  middlename?: string;
-  lastname?: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
 }
 export class level {
   level?: string;
@@ -33,10 +34,11 @@ export class level {
 }
 
 export class newCourse {
-  code?: string;
-  name?: string;
-  unit?: string;
-  level?: string;
-  lecturer?: string;
-  student_no?: string;
+  courseId?: string
+  courseCode?: string
+  courseName?: string
+  creditUnit?: number
+  level?: string
+  lecturer?: string
+  studentsNo?: number
 }

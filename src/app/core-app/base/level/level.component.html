@@ -41,15 +41,15 @@
     <div class="level-card" *ngFor="let item of levelArray; let i = index">
       <div class="level-top">
         <div class="head">{{ item.level }} Level</div>
-        <div><mat-icon class="icn" matTooltip="Delete Level" (click)="delete(item.Id)">delete_outline</mat-icon></div>
+        <div><mat-icon class="icn" matTooltip="Delete Level" (click)="delete(item.levelId)">delete_outline</mat-icon></div>
       </div>
       <div>Level Adviser: <span>{{ item.level_Adviser || item.levelAdviser }}</span></div>
       <div>
         <div>Courses:</div>
         <div class="chips">
-          <div *ngFor="let chip of chips" class="chip">{{chip}}</div>
-          <div *ngIf="!chips.length" class="empty">No courses found</div>
-          <div class="eye" matTooltip="View Courses" (click)="viewCourse(item.Id)"><mat-icon
+          <div *ngFor="let chip of item.courses" class="chip">{{ chip.courseCode }}</div>
+          <div *ngIf="!item.courses?.length" class="empty">No courses found</div>
+          <div class="eye" matTooltip="View Courses" (click)="viewCourse(item.levelId)"><mat-icon
               class="ic">visibility</mat-icon></div>
         </div>
       </div>

@@ -16,9 +16,9 @@ import { EditLecturerComponent } from './edit-lecturer/edit-lecturer.component';
 export default class CatalogueComponent implements OnInit {
   displayedColumns: string[] = [
     'title',
-    'firstname',
-    'middlename',
-    'lastname',
+    'firstName',
+    'middleName',
+    'lastName',
     'btn',
   ];
   dataSource = new MatTableDataSource<any>();
@@ -71,55 +71,45 @@ export default class CatalogueComponent implements OnInit {
 
   //LECTURERS
   getGroup() {
-    this.app.getLecturer().subscribe({
-      next: (res) => {
-        this.groupList = res;
-        this.dataSource = new MatTableDataSource(this.groupList);
-        this.dataSource.paginator = this.paginator;
-      },
-      error: (err) => { },
+  this.app.getLecturer().subscribe({
+    next: (res) => {
+      this.groupList = res;
+      this.dataSource.data = this.groupList;  // instead of new MatTableDataSource()
+      this.dataSource.paginator = this.paginator;
+    },
+    error: (err) => { },
+  });
+}
+
+ registerLecturer() {
+  let dialogConfig = new MatDialogConfig();
+  dialogConfig.minWidth = '30%';
+  dialogConfig.minHeight = '30vh';
+  dialogConfig.disableClose = false;
+
+  this.dialog
+    .open(AddLecturerComponent, dialogConfig)
+    .afterClosed()
+    .subscribe((res: any) => {
+      if (res) {
+        this.getGroup();
+        this.snackbar.open('Lecturer added successfully.', 'Dismiss', {
+          duration: 4000
+        });
+      }
     });
-  }
+}
 
-  registerLecturer() {
-    let dialogConfig = new MatDialogConfig();
-    dialogConfig.minWidth = '30%';
-    dialogConfig.minHeight = '30vh';
-    dialogConfig.disableClose = false;
-    this.dialog
-      .open(AddLecturerComponent, dialogConfig)
-      .afterClosed()
-      .subscribe((res: any) => {
-        if (res) {
-          this.payload.title = res.value.title;
-          this.payload.firstname = res.value.fname;
-          this.payload.middlename = res.value.mname;
-          this.payload.lastname = res.value.lname;
-
-          console.log(this.payload, 'payload');
-          this.app.postLecturer(this.payload).subscribe({
-            next: (res) => {
-              console.log(res);
-              this.getGroup();
-
-              this.snackbar.open(res.message, 'Dismiss', { duration: 4000 })
-            },
-          });
-        }
-      });
-    // this.dataSource = new MatTableDataSource(this.groupList);
-  }
-
-  editLecturer(id: any) {
+  editLecturer(lecturerId: string) {
 
     let dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '30%';
     dialogConfig.minHeight = '30vh';
     dialogConfig.disableClose = false;
 
-    this.app.getSingleLecturer(id).subscribe({
+    this.app.getSingleLecturer(lecturerId).subscribe({
       next: (res) => {
-        dialogConfig.data = res[0];
+        dialogConfig.data = res;
 
         this.dialog
           .open(AddLecturerComponent, dialogConfig)
@@ -128,10 +118,10 @@ export default class CatalogueComponent implements OnInit {
             if (res) {
 
               this.payload.title = res.value.title;
-              this.payload.firstname = res.value.fname;
-              this.payload.middlename = res.value.mname;
-              this.payload.lastname = res.value.lname;
-              this.app.editLecturer(id, this.payload).subscribe({
+              this.payload.firstName = res.value.firstName;
+              this.payload.middleName = res.value.middleName;
+              this.payload.lastName = res.value.lastName;
+              this.app.editLecturer(lecturerId, this.payload).subscribe({
                 next: (res) => {
                   this.getGroup();
                   this.snackbar.open(res.message, 'Dismiss', {
@@ -153,7 +143,7 @@ export default class CatalogueComponent implements OnInit {
   //   // localStorage.setItem('groupList', JSON.stringify(this.groupList));
   // }
 
-  delete(id: number) {
+  delete(id: string) {
     this.app.deleteLecturer(id).subscribe(
       (res) => {
         console.log(res.message);

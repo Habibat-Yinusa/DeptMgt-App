@@ -41,9 +41,9 @@
       <mat-select matInput value="all" (selectionChange)="filterbyLecturer($event.value)" type="text">
         <mat-option value="all">All</mat-option>
         <mat-option [value]="
-              fullName.title + ' ' + fullName.fname + ' ' + fullName.lname
+              fullName.title + ' ' + fullName.firstName + ' ' + fullName.lastName
             " *ngFor="let fullName of lecturerList">{{
-          fullName.title + " " + fullName.fname + " " + fullName.lname
+          fullName.title + " " + fullName.firstName + " " + fullName.lastName
           }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -61,44 +61,44 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell style="text-transform: capitalize" *matCellDef="let element">
-        {{ element.Course_Name }}
+        {{ element.courseName }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="code">
       <th mat-header-cell *matHeaderCellDef>Code</th>
       <td style="text-transform: uppercase" mat-cell *matCellDef="let element">
-        {{ element.Course_Code }}
+        {{ element.courseCode }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="level">
       <th mat-header-cell *matHeaderCellDef>Level</th>
-      <td mat-cell *matCellDef="let element">{{ element.Level }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.level }}</td>
     </ng-container>
     <ng-container matColumnDef="unit">
       <th mat-header-cell *matHeaderCellDef>Credit Unit</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.Credit_Unit }}
+        {{ element.creditUnit }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="lecturer">
       <th mat-header-cell *matHeaderCellDef>Lecturer</th>
-      <td mat-cell *matCellDef="let element">{{ element.Lecturer }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.Lecturer.lecturerName }}</td>
     </ng-container>
     <ng-container matColumnDef="students">
       <th mat-header-cell *matHeaderCellDef>No of Students</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.Students_No }}
+        {{ element.studentsNo }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef></th>
       <td align="right" mat-cell *matCellDef="let element; let i = index">
-        <div class="edit-btn" (click)="edit(element.Id)">Edit</div>
-        <div class="delete-btn" (click)="delete(element.Id)">Delete</div>
+        <div class="edit-btn" (click)="edit(element.courseId)">Edit</div>
+        <div class="delete-btn" (click)="delete(element.courseId)">Delete</div>
       </td>
     </ng-container>
 

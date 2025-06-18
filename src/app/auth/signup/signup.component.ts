@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
   disable: boolean = false;
   name: string = '';
   // currentDepartment: string = '';
-  lastname: string = '';
+  lastName: string = '';
   signUpForm: any;
   payload = new newUser();
   userList: any[] = [];
@@ -33,11 +33,11 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
-      username: ['', Validators.required],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      userName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', Validators.compose([Validators.email, Validators.required])],
-      middlename: [''],
+      middleName: [''],
       department: ['', Validators.required],
       faculty: ['', Validators.required],
       password: [
@@ -56,15 +56,15 @@ export class SignupComponent implements OnInit {
     const form = this.signUpForm.value;
     console.log(form, 'this form');
 
-    this.payload.username = form.username;
-    this.payload.firstname = form.firstname;
-    this.payload.lastname = form.lastname;
-    this.payload.middlename = form.middlename;
+    this.payload.userName = form.userName;
+    this.payload.firstName = form.firstName;
+    this.payload.lastName = form.lastName;
+    this.payload.middleName = form.middleName;
     this.payload.email = form.email;
     this.payload.department = form.department;
     this.payload.faculty = form.faculty;
     this.payload.password = form.password;
-    this.payload.confirmpassword = form.confirmPassword;
+    this.payload.confirmPassword = form.confirmPassword;
     console.log(this.payload);
     this.app.setUser(this.payload).subscribe({
       next: (res) => {
@@ -78,9 +78,9 @@ export class SignupComponent implements OnInit {
     console.log(this.userList);
 
     let department = this.signUpForm.get('department');
-    let username = this.signUpForm.get('username');
+    let userName = this.signUpForm.get('userName');
     localStorage.setItem('department', JSON.stringify(department.value));
-    localStorage.setItem('username', JSON.stringify(username.value));
+    localStorage.setItem('userName', JSON.stringify(userName.value));
     console.log(department, 'department');
   }
 }

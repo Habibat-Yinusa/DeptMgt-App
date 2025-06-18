@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { newLecturer } from 'src/app/model/data';
 import { newUser } from './../model/data';
+import { environment } from 'src/environments/environment';
 
 const headers = new HttpHeaders({
   'Content-Type': 'application/json',
@@ -19,7 +20,7 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  private testurl = 'http://localhost:3000';
+  private testurl = environment.ApiUrl;
 
   //user details
   // getUsers(url:any, payload:any): Observable<any> {
@@ -46,10 +47,11 @@ export class DataService {
   }
 
   setUser(payload: any): Observable<any> {
-    return this.http
-      .post<any>(this.testurl + '/users', payload)
-      .pipe(catchError((err) => this.errorHandler(err)));
-  }
+  return this.http
+    .post<any>(this.testurl + '/users/signup', payload)
+    .pipe(catchError((err) => this.errorHandler(err)));
+}
+
 
   // lecturer details
   getLecturer(): Observable<any> {
@@ -57,9 +59,9 @@ export class DataService {
       .get<any>(this.testurl + `/lecturers`)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
-  getSingleLecturer(id: number): Observable<any> {
+  getSingleLecturer(lecturerId: string): Observable<any> {
     return this.http
-      .get<any>(this.testurl + `/lecturers/${id}`)
+      .get<any>(this.testurl + `/lecturers/${lecturerId}`)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
@@ -71,13 +73,13 @@ export class DataService {
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
-  editLecturer(id: number, payload: any): Observable<any> {
+  editLecturer(id: string, payload: any): Observable<any> {
     return this.http
       .put<any>(this.testurl + `/lecturers/${id}`, payload)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
-  deleteLecturer(id: number):Observable<any> {
+  deleteLecturer(id: string):Observable<any> {
     return this.http
     .delete<any>(this.testurl + `/lecturers/${id}`)
     .pipe(catchError((err) => this.errorHandler(err)))
@@ -95,12 +97,12 @@ export class DataService {
       .pipe(catchError((err) => this.errorHandler(err)));
   }
   //to get all courses per level
-  getLevelCourses(id: number): Observable<any> {
+  getLevelCourses(levelId: string): Observable<any> {
     return this.http
-      .get<any>(this.testurl + `/levels/${id}`)
+      .get<any>(this.testurl + `/levels/${levelId}`)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
-  deleteLevel(id: number): Observable<any> {
+  deleteLevel(id: string): Observable<any> {
     return this.http
     .delete<any>(this.testurl + `/levels/${id}`)
     .pipe(catchError((err) => this.errorHandler(err)))
@@ -112,7 +114,7 @@ export class DataService {
       .get<any>(this.testurl + '/courses')
       .pipe(catchError((err) => this.errorHandler(err)));
   }
-  getSingleCourses(id: number): Observable<any> {
+  getSingleCourses(id: string): Observable<any> {
     return this.http
       .get<any>(this.testurl + `/courses/${id}`)
       .pipe(catchError((err) => this.errorHandler(err)));
@@ -124,13 +126,13 @@ export class DataService {
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
-  editCourse(payload: any, id: number): Observable<any> {
+  editCourse(payload: any, id: string): Observable<any> {
     return this.http
       .put<any>(this.testurl + `/courses/${id}`, payload)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
-  deleteCourse( id:number): Observable<any> {
+  deleteCourse( id:string): Observable<any> {
     return this.http
     .delete<any>(this.testurl + `/courses/${id}`)
     .pipe(catchError((err) => this.errorHandler(err)))

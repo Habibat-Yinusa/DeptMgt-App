@@ -46,7 +46,7 @@ export class LevelComponent implements OnInit {
     this.payload.level = this.form.value.level;
     this.payload.levelAdviser = this.form.value.LA;
     this.levelArray.push(this.payload)
-    
+
     this.app.postLevel(this.payload).subscribe({
       next: (res) => {
         this.getlevels();
@@ -64,12 +64,28 @@ export class LevelComponent implements OnInit {
   }
 
   getlevels() {
-    this.app.getLevels().subscribe({
-      next: (res) => {
-        this.levelArray = res;
-      },
-    });
-  }
+  this.app.getLevels().subscribe({
+    next: (res) => {
+      this.levelArray = res;
+
+      this.levelArray.forEach((level) => {
+        this.app.getLevelCourses(level.levelId).subscribe({
+          next: (courses) => {
+            level.courses = courses;
+          },
+          error: (err) => {
+            console.log('Error loading courses for level', level.levelId, err);
+            level.courses = [];
+          }
+        });
+      });
+    },
+    error: (err) => {
+      console.log('Error loading levels', err);
+    }
+  });
+}
+
 
   reset() {
     this.levelDetails = { level: '', adviser: '' };
@@ -81,7 +97,7 @@ export class LevelComponent implements OnInit {
   //   this.levelArray.splice(i, 1);
   //   localStorage.setItem('levels', JSON.stringify(this.levelArray));
   // }
-  delete(id: number) {
+  delete(id: string) {
     this.app.deleteLevel(id).subscribe(
       res => {
         this.getlevels();
@@ -89,13 +105,13 @@ export class LevelComponent implements OnInit {
     )
   }
 
-  viewCourse(Id: number) {
+  viewCourse(levelId: string) {
     let dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '50%';
     dialogConfig.minHeight = '30vh';
     dialogConfig.disableClose = false;
 
-    this.app.getLevelCourses(Id).subscribe({
+    this.app.getLevelCourses(levelId).subscribe({
       next: (res) => {
         dialogConfig.data = res;
 

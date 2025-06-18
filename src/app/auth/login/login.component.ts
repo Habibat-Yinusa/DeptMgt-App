@@ -68,28 +68,29 @@ export class LoginComponent implements OnInit {
   }
 
   userLogin() {
-    this.errmsg = '';
+  this.errmsg = '';
 
-    const form = this.loginForm.value;
-    this.payload.email = form.email;
-    this.payload.password = form.password;
+  const form = this.loginForm.value;
+  this.payload.email = form.email;
+  this.payload.password = form.password;
 
-    this.router.navigate(['/app/level']);
+  this.app.loginUser(this.payload).subscribe({
+    next: (res) => {
+      console.log(res, 'res');
+      // Save response (token or user info)
+      localStorage.setItem('loggedUser', JSON.stringify(res));
 
-    this.app.loginUser(this.payload).subscribe({
-      next: (res) => {
-        console.log(res, 'res');
-        localStorage.setItem('loggedUser', JSON.stringify(res));
-        this.router.navigate(['/app/level']);
-      },
-      error: (err) => {
-        console.log(err);
+      // Navigate to dashboard
+      this.router.navigate(['/app/level']);
+    },
+    error: (err) => {
+      console.log(err);
 
-        this.errmsg = err.error?.message || 'Error connecting to database';
-        setTimeout(() => {
-          this.errmsg = '';
-        }, 5000);
-      },
-    });
-  }
+      this.errmsg = err.error?.message || 'Error connecting to database';
+      setTimeout(() => {
+        this.errmsg = '';
+      }, 5000);
+    },
+  });
+}
 }

@@ -36,23 +36,23 @@
         </mat-option> -->
         <mat-option
           [value]="
-            fullName.Title +
+            fullName.title +
             ' ' +
-            fullName.First_name +
+            fullName.firstName +
             ' ' +
-            fullName.Middle_name +
+            fullName.middleName +
             ' ' +
-            fullName.Last_name
+            fullName.lastName
           "
           *ngFor="let fullName of lecturerList"
           >{{
-            fullName.Title +
+            fullName.title +
               " " +
-              fullName.First_name +
+              fullName.firstName +
               " " +
-              fullName.Middle_name +
+              fullName.middleName +
               " " +
-              fullName.Last_name
+              fullName.lastName
           }}</mat-option
         >
       </mat-select>

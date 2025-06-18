@@ -15,22 +15,16 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 })
 export class CourseComponent implements OnInit {
   displayedColumns: string[] = [
-    'code',
-    'name',
-    'level',
-    'unit',
-    'lecturer',
-    'students',
-    'delete',
+    'courseCode', 'courseName','level', 'creditUnit', 'lecturer', 'students', 'Delete'
   ];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   courses: any[] = [
-    { Course_Name: 'Maths Introduction', Course_Code: 'MAT 101', Level: 300, Credit_Unit: 3, Lecturer: 'Mubeen Habibat', Students_No: 20 },
-    { Course_Name: 'Maths Introduction', Course_Code: 'MAT 101', Level: 300, Credit_Unit: 3, Lecturer: 'Mubeen Habibat', Students_No: 20 },
-    { Course_Name: 'Maths Introduction', Course_Code: 'MAT 101', Level: 300, Credit_Unit: 3, Lecturer: 'Mubeen Habibat', Students_No: 20 },
+    // { Course_Name: 'Maths Introduction', Course_Code: 'MAT 101', Level: 300, Credit_Unit: 3, Lecturer: 'Mubeen Habibat', Students_No: 20 },
+    // { Course_Name: 'Maths Introduction', Course_Code: 'MAT 101', Level: 300, Credit_Unit: 3, Lecturer: 'Mubeen Habibat', Students_No: 20 },
+    // { Course_Name: 'Maths Introduction', Course_Code: 'MAT 101', Level: 300, Credit_Unit: 3, Lecturer: 'Mubeen Habibat', Students_No: 20 },
   ];
   editId: any;
   isEdit: boolean = false;
@@ -45,13 +39,13 @@ export class CourseComponent implements OnInit {
   constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) { }
   ngOnInit(): void {
     this.getCourses();
-    // this.dataSource = new MatTableDataSource(this.courses);
-    // let fromStorage = localStorage.getItem('courses');
-    // if (fromStorage) {
-    //   this.courses = JSON.parse(fromStorage);
-    //   this.dataSource = new MatTableDataSource(this.courses);
-    //   // this.dataSource.paginator = this.paginator;
-    // }
+    this.dataSource = new MatTableDataSource(this.courses);
+    let fromStorage = localStorage.getItem('courses');
+    if (fromStorage) {
+      this.courses = JSON.parse(fromStorage);
+      this.dataSource = new MatTableDataSource(this.courses);
+      // this.dataSource.paginator = this.paginator;
+    }
 
     let levels = localStorage.getItem('levels');
     if (levels) {
@@ -85,15 +79,18 @@ export class CourseComponent implements OnInit {
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
-          this.payload.code = res.value.code;
-          this.payload.name = res.value.name;
-          this.payload.unit = res.value.unit;
-          this.payload.level = res.value.level;
-          this.payload.lecturer = res.value.lecturer;
-          this.payload.student_no = res.value.students;
+          this.payload.courseCode = res.code;
+          this.payload.courseName = res.name;
+          this.payload.creditUnit = res.unit;
+          this.payload.level = res.level;
+          this.payload.lecturer = res.lecturer;
+          this.payload.studentsNo = res.students;
+
+          console.log(this.payload, 'payload');
 
           this.app.postCourse(this.payload).subscribe({
             next: (res) => {
+              console.log(res, 'course added');
               this.getCourses();
               this.snackbar.open(res.message, 'Dismiss', {
                 duration: 4000
@@ -148,27 +145,36 @@ export class CourseComponent implements OnInit {
   // }
 
   edit(Id: any) {
-    let dialogConfig = new MatDialogConfig();
-    dialogConfig.minWidth = '40%';
-    dialogConfig.minHeight = '30vh';
-    dialogConfig.disableClose = false;
-    // dialogConfig.data = data;
-    this.app.getSingleCourses(Id).subscribe({
-      next: (res) => {
-        dialogConfig.data = res;
-        // console.log(dialogConfig.data, 'dialog data');
-        this.dialog
-          .open(EditCourseComponent, dialogConfig)
-          .afterClosed()
-          .subscribe((res: any) => {
-            this.payload.code = ' ';
-            this.payload.name = ' ';
-            this.payload.unit = ' ';
-            this.payload.level = ' ';
-            this.payload.lecturer = ' ';
-            this.payload.student_no = ' ';
+  let dialogConfig = new MatDialogConfig();
+  dialogConfig.minWidth = '40%';
+  dialogConfig.minHeight = '30vh';
+  dialogConfig.disableClose = false;
 
-            this.getCourses();
+  this.app.getSingleCourses(Id).subscribe({
+    next: (res) => {
+      dialogConfig.data = res;
+
+      this.dialog
+        .open(EditCourseComponent, dialogConfig)
+        .afterClosed()
+        .subscribe((res: any) => {
+          if (res) {
+            this.app.editCourse(res.value, Id).subscribe({
+              next: () => {
+                this.getCourses();
+              },
+              error: (err) => {
+                console.error('Error updating course:', err);
+              },
+            });
+          }
+        });
+    },
+    error: (err) => {
+      console.error('Error fetching course:', err);
+    },
+  });
+}
 
             // if (res) {
             //   for (let i = 0; i < this.courses.length; i++) {
@@ -182,10 +188,7 @@ export class CourseComponent implements OnInit {
             //   this.dataSource.paginator = this.paginator;
             //   localStorage.setItem('courses', JSON.stringify(this.courses));
             // }
-          });
-      },
-    });
-  }
+
 
   //DELETE A COURSE
   delete(Id: any) {

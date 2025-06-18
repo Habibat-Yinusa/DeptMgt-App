@@ -21,7 +21,6 @@ export class AddCourseComponent implements OnInit {
     private app: DataService
   ) {
     this.form = this.fb.group({
-      id: [''],
       code: ['', Validators.required],
       name: ['', Validators.required],
       level: ['', Validators.required],
@@ -46,8 +45,6 @@ export class AddCourseComponent implements OnInit {
 
     if (this.data) {
       this.setData();
-    } else {
-      this.setId();
     }
   }
   // GET LECTURERS FROM DATABASE
@@ -71,19 +68,19 @@ export class AddCourseComponent implements OnInit {
     });
   }
 
-  setId() {
-    let id = Math.random() * 99999999;
-    this.form.get('id')?.setValue(id.toString());
-  }
+  // setId() {
+  //   let id = Math.random() * 99999999;
+  //   this.form.get('id')?.setValue(id.toString());
+  // }
 
   setData() {
-    this.form.get('name')?.setValue(this.data.name);
-    this.form.get('id')?.setValue(this.data.id);
-    this.form.get('code')?.setValue(this.data.code);
+    this.form.get('name')?.setValue(this.data.courseName);
+    // this.form.get('id')?.setValue(this.data.id);
+    this.form.get('code')?.setValue(this.data.courseCode);
     this.form.get('level')?.setValue(this.data.level);
-    this.form.get('unit')?.setValue(this.data.unit);
+    this.form.get('unit')?.setValue(this.data.creditUnit);
     this.form.get('lecturer')?.setValue(this.data.lecturer);
-    this.form.get('students')?.setValue(this.data.students);
+    this.form.get('students')?.setValue(this.data.studentsNo);
 
     // this.form.value.id = this.data.id;
     // this.form.value.code = this.data.code;
@@ -98,7 +95,7 @@ export class AddCourseComponent implements OnInit {
   }
 
   save() {
-    this.dialogref.close(this.form);
+    this.dialogref.close(this.form.value);
   }
   close() {
     this.dialogref.close();

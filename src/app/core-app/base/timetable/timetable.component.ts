@@ -15,14 +15,14 @@ import { TIME_TABLE } from './timetable-config';
 export class TimetableComponent implements OnInit {
   levelList: any[] = [];
   levelCourses: any[] = [
-    { dot: '#000077', name: 'MAT 101', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 100 },
-    { dot: '#000077', name: 'MAT 102', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 100 },
-    { dot: '#007700', name: 'MAT 201', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 200 },
-    { dot: '#007700', name: 'MAT 202', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 200 },
-    { dot: '#b70000', name: 'MAT 301', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 300 },
-    { dot: '#b70000', name: 'MAT 302', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 300 },
-    { dot: '#faad1f', name: 'MAT 401', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 400 },
-    { dot: '#faad1f', name: 'MAT 402', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 400 },
+    // { dot: '#000077', courseCode: 'MAT 101', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 100 },
+    // { dot: '#000077', courseCode: 'MAT 102', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 100 },
+    // { dot: '#007700', courseCode: 'MAT 201', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 200 },
+    // { dot: '#007700', courseCode: 'MAT 202', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 200 },
+    // { dot: '#b70000', courseCode: 'MAT 301', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 300 },
+    // { dot: '#b70000', courseCode: 'MAT 302', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 300 },
+    // { dot: '#faad1f', courseCode: 'MAT 401', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 400 },
+    // { dot: '#faad1f', courseCode: 'MAT 402', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 400 },
   ];
   registered: any[] = [];
   todo: any[] = [];
@@ -61,23 +61,21 @@ export class TimetableComponent implements OnInit {
   // todo = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   ngOnInit(): void {
-    let fromStorage = localStorage.getItem('levels');
-    if (fromStorage) {
-      this.levelList = JSON.parse(fromStorage);
-    }
-    let courseFromStorage = localStorage.getItem('courses');
-    if (courseFromStorage) {
-      this.levelCourses = JSON.parse(courseFromStorage);
+   this.app.getCourses().subscribe({
+    next: (res) => {
+      this.levelCourses = res;
 
       this.levelCourses.forEach((element) => {
-        this.courseCode = element.code;
+        this.courseCode = element.courseCode;
         this.todo.push(this.courseCode);
-        // this.done.push(this.courseCode);0
       });
-      console.log(this.todo, 'todo');
 
-      // this.levelCourses.filter((el) => el.level == level.level);
-    }
+      console.log(this.todo, 'todo');
+    },
+    error: (err) => {
+      console.error('Error fetching courses:', err);
+    },
+  });
   }
 
   ngAfterViewInit(): void {

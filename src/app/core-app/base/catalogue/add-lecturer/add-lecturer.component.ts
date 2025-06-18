@@ -1,11 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataService } from 'src/app/api/data.service';
 import { newLecturer } from 'src/app/model/data';
-
-// import { MessageUtil, Util, Constants } from '../../helpers/utilities';
-// import {  } from "module";
 
 @Component({
   selector: 'app-add-lecturer',
@@ -15,8 +12,9 @@ import { newLecturer } from 'src/app/model/data';
 export class AddLecturerComponent implements OnInit {
   form: FormGroup;
   payload = new newLecturer();
-  loading: boolean | undefined;
+  loading: boolean = false;
   error: any;
+
   constructor(
     private dialogref: MatDialogRef<AddLecturerComponent>,
     private fb: FormBuilder,
@@ -24,10 +22,10 @@ export class AddLecturerComponent implements OnInit {
     private app: DataService
   ) {
     this.form = this.fb.group({
-      title: [''],
-      fname: [''],
+      title: ['', Validators.required],
+      fname: ['', Validators.required],
       mname: [''],
-      lname: [''],
+      lname: ['', Validators.required],
     });
   }
 
@@ -38,24 +36,44 @@ export class AddLecturerComponent implements OnInit {
   }
 
   setData() {
-    this.form.get('title')!.setValue(this.data.Title);
-    this.form.get('fname')!.setValue(this.data.First_name);
-    this.form.get('mname')!.setValue(this.data.Middle_name);
-    this.form.get('lname')!.setValue(this.data.Last_name);
+    this.form.get('title')!.setValue(this.data.title);
+    this.form.get('fname')!.setValue(this.data.firstName);
+    this.form.get('mname')!.setValue(this.data.middleName);
+    this.form.get('lname')!.setValue(this.data.lastName);
   }
 
-  save() {
-    // const form = this.form.value;
-    // console.log(form, 'lecturer');
-
-    // this.payload.title = form.title;
-    // this.payload.firstname = form.fname;
-    // this.payload.middlename = form.mname;
-    // this.payload.lastname = form.lname;
-
-    this.dialogref.close(this.form);
+ save() {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
-  close() {
-    this.dialogref.close();
-  }
+
+  const form = this.form.value;
+
+  console.log('Form data:', form);
+
+  this.payload.title = form.title;
+  this.payload.firstName = form.fname;
+  this.payload.middleName = form.mname;
+  this.payload.lastName = form.lname;
+
+  this.loading = true;
+
+  this.app.postLecturer(this.payload).subscribe({
+    next: (res) => {
+      console.log('Lecturer added successfully:', res);
+      this.loading = false;
+      this.dialogref.close(true);
+    },
+    error: (err) => {
+      this.loading = false;
+      this.error = err;
+      console.error('Error adding lecturer:', err);
+    },
+  });
+}
+
+close() {
+  this.dialogref.close();
+}
 }

@@ -61,12 +61,13 @@ export class TimetableComponent implements OnInit {
   // todo = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   ngOnInit(): void {
-   this.app.getCourses().subscribe({
+  this.app.getCourses().subscribe({
     next: (res) => {
       this.levelCourses = res;
 
-      this.levelCourses.forEach((element) => {
-        this.courseCode = element.courseCode;
+      this.levelCourses.forEach((course) => {
+        course.dot = this.getRandomColor();
+        this.courseCode = course.courseCode;
         this.todo.push(this.courseCode);
       });
 
@@ -76,7 +77,14 @@ export class TimetableComponent implements OnInit {
       console.error('Error fetching courses:', err);
     },
   });
-  }
+}
+
+getRandomColor(): string {
+  const colors = ['#000077', '#007700', '#b70000', '#faad1f', '#aa00ff', '#ff0066'];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+}
+
 
   ngAfterViewInit(): void {
     this.makeList()

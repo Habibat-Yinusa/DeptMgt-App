@@ -58,9 +58,9 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="code" appearance="outline">
+    <mat-form-field class="name" appearance="outline">
       <mat-label>Level</mat-label>
-      <mat-select formControlName="level" matInput type="text">
+      <mat-select formControlName="level" matInput type="number">
         <mat-option [value]="level.level" *ngFor="let level of levels">{{
           level.level
         }}</mat-option>

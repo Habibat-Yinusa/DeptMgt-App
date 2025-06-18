@@ -29,7 +29,7 @@ export class lecturer {
   lastName?: string;
 }
 export class level {
-  level?: string;
+  level?: number;
   levelAdviser?: string;
 }
 

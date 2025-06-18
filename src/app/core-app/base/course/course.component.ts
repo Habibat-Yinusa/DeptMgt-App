@@ -39,23 +39,6 @@ export class CourseComponent implements OnInit {
   constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) { }
   ngOnInit(): void {
     this.getCourses();
-    this.dataSource = new MatTableDataSource(this.courses);
-    let fromStorage = localStorage.getItem('courses');
-    if (fromStorage) {
-      this.courses = JSON.parse(fromStorage);
-      this.dataSource = new MatTableDataSource(this.courses);
-      // this.dataSource.paginator = this.paginator;
-    }
-
-    let levels = localStorage.getItem('levels');
-    if (levels) {
-      this.levels = JSON.parse(levels);
-    }
-
-    let lect = localStorage.getItem('lecturerList');
-    if (lect) {
-      this.lecturerList = JSON.parse(lect);
-    }
   }
 
   getCourses() {

@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 })
 export class CourseComponent implements OnInit {
   displayedColumns: string[] = [
-    'courseCode', 'courseName','level', 'creditUnit', 'lecturer', 'students', 'Delete'
+    'courseCode', 'courseName','level', 'creditUnit', 'lecturer', 'students', 'delete'
   ];
   dataSource = new MatTableDataSource<any>();
 
@@ -79,6 +79,7 @@ export class CourseComponent implements OnInit {
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
+          console.log(res, 'res');
           this.payload.courseCode = res.code;
           this.payload.courseName = res.name;
           this.payload.creditUnit = res.unit;
@@ -136,13 +137,6 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  // delete(id: any) {
-  //   // alert('are you sure you want to delete this course?');
-  //   this.courses.splice(id, 1);
-  //   this.dataSource = new MatTableDataSource(this.courses);
-  //   this.dataSource.paginator = this.paginator;
-  //   localStorage.setItem('courses', JSON.stringify(this.courses));
-  // }
 
   edit(Id: any) {
   let dialogConfig = new MatDialogConfig();

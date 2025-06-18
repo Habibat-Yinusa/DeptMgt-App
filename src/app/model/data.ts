@@ -38,7 +38,7 @@ export class newCourse {
   courseCode?: string
   courseName?: string
   creditUnit?: number
-  level?: string
+  level?: number
   lecturer?: string
   studentsNo?: number
 }

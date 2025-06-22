@@ -14,7 +14,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    LoadingButtonComponent
   ],
   exports: [LoadingButtonComponent]
 })

@@ -20,8 +20,7 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  private testurl = 'http://localhost:3000'
-  // environment.ApiUrl;
+  private testurl = environment.ApiUrl;
 
   //user details
   // getUsers(url:any, payload:any): Observable<any> {

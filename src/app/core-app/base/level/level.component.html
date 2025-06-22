@@ -19,9 +19,14 @@
     <mat-label>Level Adviser</mat-label>
     <input matInput type="text" formControlName="LA" placeholder="Level Adviser" />
   </mat-form-field>
-  <button mat-flat-button [disabled]="form.invalid" color="primary" (click)="submit()">
-    Add Level
-  </button>
+  <app-loading-button
+  label="Add Level"
+  [loading]="loading"
+  [disabled]="form.invalid"
+  color="primary"
+  (clicked)="submit()"
+></app-loading-button>
+
   <div class="error">{{ errmsg }}</div>
 </form>
 

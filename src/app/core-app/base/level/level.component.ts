@@ -27,6 +27,7 @@ export class LevelComponent implements OnInit {
   payload = new level();
   levelDetails = { level: '', adviser: '' };
   errmsg: any;
+  loading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -42,6 +43,7 @@ export class LevelComponent implements OnInit {
   }
 
   submit() {
+    this.loading =true
     this.payload = new level();
     this.payload.level = this.form.value.level;
     this.payload.levelAdviser = this.form.value.LA;
@@ -50,6 +52,7 @@ export class LevelComponent implements OnInit {
     this.app.postLevel(this.payload).subscribe({
       next: (res) => {
         this.getlevels();
+        this.loading = false;
       },
       error: (err) => {
         this.errmsg = err.error.text;

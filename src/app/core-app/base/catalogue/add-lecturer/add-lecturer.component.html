@@ -33,6 +33,13 @@
     </mat-form-field>
   </form>
   <div class="btn-container">
-    <button mat-flat-button color="primary" (click)="save()">Save</button>
+    <app-loading-button
+  label="Save"
+  [loading]="loading"
+  [disabled]="false"
+  color="primary"
+  (clicked)="save()"
+></app-loading-button>
+
   </div>
 </div>

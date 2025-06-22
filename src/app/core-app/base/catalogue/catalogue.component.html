@@ -100,7 +100,14 @@
               Create and manage your Profile
             </div>
           </div>
-          <button mat-flat-button color="primary" (click)="updateUser(userInfo.user.userId)">Save</button>
+          <app-loading-button
+            label="Save"
+            [loading]="loading"
+            [disabled]="false"
+            color="primary"
+            (clicked)="updateUser(userInfo.user.userId)"
+          ></app-loading-button>
+
         </div>
 
         <div class="top-line"></div>

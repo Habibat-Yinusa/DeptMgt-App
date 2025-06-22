@@ -35,6 +35,7 @@ export class CourseComponent implements OnInit {
   levels: any;
   lecturerList: any[] = [];
   payload = new newCourse();
+  loading: boolean = false;
 
   constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) { }
   ngOnInit(): void {
@@ -83,7 +84,7 @@ export class CourseComponent implements OnInit {
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
-          console.log(res, 'res');
+          this.loading = true;
           this.payload.courseCode = res.code;
           this.payload.courseName = res.name;
           this.payload.creditUnit = res.unit;
@@ -96,6 +97,7 @@ export class CourseComponent implements OnInit {
           this.app.postCourse(this.payload).subscribe({
             next: (res) => {
               this.getCourses();
+              this.loading = false;
               this.snackbar.open(res.message, 'Dismiss', {
                 duration: 4000
               })

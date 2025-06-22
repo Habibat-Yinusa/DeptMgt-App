@@ -38,6 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingButtonComponent } from '../../shared/loading-button/loading-button.component'
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     BaseComponent,
@@ -73,7 +74,8 @@ import { LoadingButtonComponent } from '../../shared/loading-button/loading-butt
     DragDropModule,
     MatSnackBarModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SharedModule,
     // MAT_DIALOG_DATA
     // FlatTreeControl,
     // MatTreeFlatDataSource,

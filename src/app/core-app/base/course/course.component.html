@@ -5,9 +5,15 @@
       Create and manage your department courses here
     </div>
   </div>
-  <button class="register-btn" mat-flat-button color="primary" (click)="registerCourse()">
-    Add Course
-  </button>
+  <app-loading-button
+  label="Add Course"
+  [loading]="loading"
+  [disabled]="false"
+  color="primary"
+  class="register-btn"
+  (clicked)="registerCourse()"
+></app-loading-button>
+
 </div>
 
 <div class="top-line"></div>

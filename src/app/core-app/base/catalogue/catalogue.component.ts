@@ -33,6 +33,7 @@ export default class CatalogueComponent implements OnInit {
   payload = new newLecturer();
   lecturers: any;
   successMsg: any;
+  loading: boolean = false;
   constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -172,6 +173,7 @@ registerLecturer() {
   }
 
   updateUser(id: string) {
+    this.loading = true;
   const payload = {
     userName: this.userInfo.user.userName,
     firstName: this.userInfo.user.firstName,
@@ -184,18 +186,12 @@ registerLecturer() {
 
   this.app.editUser(id, payload).subscribe({
     next: (res) => {
-      console.log('User updated:', res);
-
-      // Update localStorage so header reflects change
       const updatedUser = { ...this.userInfo.user, ...payload };
       localStorage.setItem('loggedUser', JSON.stringify({ user: updatedUser }));
-
-      // Show success
+      this.loading = false;
       this.snackbar.open(res.message, 'Dismiss', {
         duration: 4000
       });
-
-      // Refresh header
       window.location.reload();
     },
     error: (err) => {

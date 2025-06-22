@@ -1,0 +1,22 @@
+<button
+  mat-flat-button
+  [color]="color"
+  [disabled]="disabled || loading"
+  (click)="onClick()"
+  class="submit-btn"
+  style="position: relative; min-width: 100px;"
+>
+  <ng-container *ngIf="loading; else normalLabel">
+    <mat-progress-spinner
+      diameter="20"
+      mode="indeterminate"
+      color="accent"
+      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);"
+    ></mat-progress-spinner>
+    <span style="opacity: 0.5; margin-left: 24px;">{{ label }}</span>
+  </ng-container>
+
+  <ng-template #normalLabel>
+    {{ label }}
+  </ng-template>
+</button>

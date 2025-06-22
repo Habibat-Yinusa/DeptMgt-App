@@ -22,13 +22,23 @@ export class EditLecturerComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       title: [''],
-      fname: [''],
-      mname: [''],
-      lname: [''],
+      firstName: [''],
+      middleName: [''],
+      lastName: [''],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.data) {
+      this.form.patchValue({
+        title: this.data.title,
+        firstName: this.data.firstName,
+        middleName: this.data.middleName,
+        lastName: this.data.lastName,
+      });
+    }
+  }
+
   save() {
     this.dialogref.close(this.form);
   }

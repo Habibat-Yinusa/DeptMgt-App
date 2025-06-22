@@ -14,6 +14,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignupComponent],
@@ -27,7 +30,10 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     MatInputModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
+    SharedModule,
   ],
+  // exports: [LoadingButtonComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

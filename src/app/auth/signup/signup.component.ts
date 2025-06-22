@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
   signUpForm: any;
   payload = new newUser();
   userList: any[] = [];
+  loading: boolean = false;
   // department: string = '';
 
   constructor(
@@ -51,36 +52,46 @@ export class SignupComponent implements OnInit {
     });
   }
   setStorage() {
-    localStorage.setItem('userDetails', JSON.stringify(this.signUpForm.value));
+  this.loading = true;
 
-    const form = this.signUpForm.value;
-    console.log(form, 'this form');
+  localStorage.setItem('userDetails', JSON.stringify(this.signUpForm.value));
 
-    this.payload.userName = form.userName;
-    this.payload.firstName = form.firstName;
-    this.payload.lastName = form.lastName;
-    this.payload.middleName = form.middleName;
-    this.payload.email = form.email;
-    this.payload.department = form.department;
-    this.payload.faculty = form.faculty;
-    this.payload.password = form.password;
-    this.payload.confirmPassword = form.confirmPassword;
-    console.log(this.payload);
-    this.app.setUser(this.payload).subscribe({
-      next: (res) => {
-        this.userList.push(res);
+  const form = this.signUpForm.value;
+  console.log(form, 'this form');
 
-        this.router.navigate(['/']);
-        // this.router.navigate(['/app/records'])
-      },
-    });
+  this.payload.userName = form.userName;
+  this.payload.firstName = form.firstName;
+  this.payload.lastName = form.lastName;
+  this.payload.middleName = form.middleName;
+  this.payload.email = form.email;
+  this.payload.department = form.department;
+  this.payload.faculty = form.faculty;
+  this.payload.password = form.password;
+  this.payload.confirmPassword = form.confirmPassword;
 
-    console.log(this.userList);
+  console.log(this.payload);
 
-    let department = this.signUpForm.get('department');
-    let userName = this.signUpForm.get('userName');
-    localStorage.setItem('department', JSON.stringify(department.value));
-    localStorage.setItem('userName', JSON.stringify(userName.value));
-    console.log(department, 'department');
-  }
+  this.app.setUser(this.payload).subscribe({
+    next: (res) => {
+      this.userList.push(res);
+      this.loading = false;
+
+      this.router.navigate(['/']);
+      // this.router.navigate(['/app/records']);
+    },
+    error: (err) => {
+      console.error('Error signing up:', err);
+      this.loading = false;
+    }
+  });
+
+  console.log(this.userList);
+
+  let department = this.signUpForm.get('department');
+  let userName = this.signUpForm.get('userName');
+  localStorage.setItem('department', JSON.stringify(department.value));
+  localStorage.setItem('userName', JSON.stringify(userName.value));
+  console.log(department, 'department');
+}
+
 }

@@ -20,7 +20,8 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  private testurl = environment.ApiUrl;
+  private testurl = 'http://localhost:3000'
+  // environment.ApiUrl;
 
   //user details
   // getUsers(url:any, payload:any): Observable<any> {
@@ -50,7 +51,13 @@ export class DataService {
   return this.http
     .post<any>(this.testurl + '/users/signup', payload)
     .pipe(catchError((err) => this.errorHandler(err)));
-}
+  }
+
+  editUser(id: string, payload: any): Observable<any> {
+    return this.http.put<any>(this.testurl + `/users/${id}`, payload)
+      .pipe(catchError((err) => this.errorHandler(err)));
+  }
+
 
 
   // lecturer details
@@ -126,7 +133,7 @@ export class DataService {
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
-  editCourse(payload: any, id: string): Observable<any> {
+  editCourse(id: string, payload: any,): Observable<any> {
     return this.http
       .put<any>(this.testurl + `/courses/${id}`, payload)
       .pipe(catchError((err) => this.errorHandler(err)));
@@ -138,6 +145,9 @@ export class DataService {
     .pipe(catchError((err) => this.errorHandler(err)))
   }
 
+  getDashboardStats() {
+  return this.http.get<any>(`${this.testurl}/courses/dashboard`);
+  }
 
 
   errorHandler(error: HttpErrorResponse) {

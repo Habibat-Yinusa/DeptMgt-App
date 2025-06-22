@@ -41,9 +41,9 @@
       <mat-select matInput value="all" (selectionChange)="filterbyLecturer($event.value)" type="text">
         <mat-option value="all">All</mat-option>
         <mat-option [value]="
-              fullName.title + ' ' + fullName.firstName + ' ' + fullName.lastName
+              fullName.title + ' ' + fullName.firstName + ' ' + fullName.middleName + ' ' + fullName.lastName
             " *ngFor="let fullName of lecturerList">{{
-          fullName.title + " " + fullName.firstName + " " + fullName.lastName
+          fullName.title + " " + fullName.firstName + " " + fullName.middleName + ' ' + fullName.lastName
           }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -74,7 +74,7 @@
 
     <ng-container matColumnDef="level">
       <th mat-header-cell *matHeaderCellDef>Level</th>
-      <td mat-cell *matCellDef="let element">{{ element.level }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.level.level }}</td>
     </ng-container>
     <ng-container matColumnDef="creditUnit">
       <th mat-header-cell *matHeaderCellDef>Credit Unit</th>

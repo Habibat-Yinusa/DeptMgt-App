@@ -90,7 +90,7 @@ export class EditCourseComponent implements OnInit {
     this.payload.lecturer = this.form.get('lecturer')?.value;
     this.payload.studentsNo = this.form.get('students')?.value;
 
-    this.app.editCourse(this.payload, Id).subscribe({
+    this.app.editCourse(Id, this.payload).subscribe({
       next: (res) => {
         this.dialogref.close(this.form);
         this.snackbar.open(res.message, 'Dismiss', {

@@ -29,12 +29,7 @@ export default class CatalogueComponent implements OnInit {
   profilePic: any;
   // lecturerList: any[] = [];
   userInfo: any;
-  groupList: any[] = [
-    { Title: 'Mr', First_name: 'Mubeen', Middle_name: 'Akin', Last_name: 'Akimbola' },
-    { Title: 'Mr', First_name: 'Mubeen', Middle_name: 'Akin', Last_name: 'Akimbola' },
-    { Title: 'Mr', First_name: 'Mubeen', Middle_name: 'Akin', Last_name: 'Akimbola' },
-    { Title: 'Mr', First_name: 'Mubeen', Middle_name: 'Akin', Last_name: 'Akimbola' },
-  ];
+  groupList: any[] = [];
   payload = new newLecturer();
   lecturers: any;
   successMsg: any;
@@ -42,14 +37,6 @@ export default class CatalogueComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGroup();
-    // this.registerLecturer();
-
-    // let fromStorage = localStorage.getItem('lecturerList');
-    // if (fromStorage) {
-    //   this.lecturerList = JSON.parse(fromStorage);
-    //   this.dataSource = new MatTableDataSource(this.lecturerList);
-    //   this.dataSource.paginator = this.paginator;
-    // }
 
     //user profile
     let userDetails = localStorage.getItem('loggedUser');
@@ -81,7 +68,7 @@ export default class CatalogueComponent implements OnInit {
   });
 }
 
- registerLecturer() {
+registerLecturer() {
   let dialogConfig = new MatDialogConfig();
   dialogConfig.minWidth = '30%';
   dialogConfig.minHeight = '30vh';
@@ -110,9 +97,8 @@ export default class CatalogueComponent implements OnInit {
     this.app.getSingleLecturer(lecturerId).subscribe({
       next: (res) => {
         dialogConfig.data = res;
-
         this.dialog
-          .open(AddLecturerComponent, dialogConfig)
+          .open(EditLecturerComponent, dialogConfig)
           .afterClosed()
           .subscribe((res: any) => {
             if (res) {
@@ -135,26 +121,13 @@ export default class CatalogueComponent implements OnInit {
     });
   }
 
-  // delete(id: any) {
-  //   // alert('are you sure you want to delete this course?');
-  //   this.groupList.splice(id, 1);
-  //   this.dataSource = new MatTableDataSource(this.groupList);
-  //   this.dataSource.paginator = this.paginator;
-  //   // localStorage.setItem('groupList', JSON.stringify(this.groupList));
-  // }
-
   delete(id: string) {
     this.app.deleteLecturer(id).subscribe(
       (res) => {
-        console.log(res.message);
-        this.successMsg = res.message;
-        console.log(this.successMsg);
-
         this.snackbar.open(res.message, 'Dismiss', {
           duration: 4000
         })
         this.getGroup()
-        // console.log(res.message, 'msg');
 
 
       })
@@ -197,4 +170,42 @@ export default class CatalogueComponent implements OnInit {
     });
     reader.readAsDataURL(pic);
   }
+
+  updateUser(id: string) {
+  const payload = {
+    userName: this.userInfo.user.userName,
+    firstName: this.userInfo.user.firstName,
+    middleName: this.userInfo.user.middleName,
+    lastName: this.userInfo.user.lastName,
+    email: this.userInfo.user.email,
+    department: this.userInfo.user.department,
+    faculty: this.userInfo.user.faculty,
+  };
+
+  this.app.editUser(id, payload).subscribe({
+    next: (res) => {
+      console.log('User updated:', res);
+
+      // Update localStorage so header reflects change
+      const updatedUser = { ...this.userInfo.user, ...payload };
+      localStorage.setItem('loggedUser', JSON.stringify({ user: updatedUser }));
+
+      // Show success
+      this.snackbar.open(res.message, 'Dismiss', {
+        duration: 4000
+      });
+
+      // Refresh header
+      window.location.reload();
+    },
+    error: (err) => {
+      console.error('Error updating user:', err);
+      this.snackbar.open(err.error?.message || 'Error updating user', 'Dismiss', {
+        duration: 4000
+      });
+    },
+  });
 }
+
+}
+

@@ -36,7 +36,8 @@ import { EditLecturerComponent } from './catalogue/edit-lecturer/edit-lecturer.c
 import { EditCourseComponent } from './course/edit-course/edit-course.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingButtonComponent } from '../../shared/loading-button/loading-button.component'
 @NgModule({
   declarations: [
     BaseComponent,
@@ -72,10 +73,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     DragDropModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatProgressSpinnerModule
     // MAT_DIALOG_DATA
     // FlatTreeControl,
     // MatTreeFlatDataSource,
     // MatTreeFlattener
-  ],
+],
 })
 export class BaseModule {}

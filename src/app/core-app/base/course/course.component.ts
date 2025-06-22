@@ -39,6 +39,27 @@ export class CourseComponent implements OnInit {
   constructor(private dialog: MatDialog, private app: DataService, private snackbar: MatSnackBar) { }
   ngOnInit(): void {
     this.getCourses();
+    this.getlevels();
+    this.getGroup();
+  }
+
+  getGroup() {
+    this.app.getLecturer().subscribe({
+      next: (res) => {
+        this.lecturerList = res;
+      },
+      error: (err) => {},
+    });
+  }
+
+  // GET LEVLS FROM DATABASE
+  getlevels() {
+    this.app.getLevels().subscribe({
+      next: (res) => {
+        this.levels = res;
+
+      },
+    });
   }
 
   getCourses() {
@@ -74,7 +95,6 @@ export class CourseComponent implements OnInit {
 
           this.app.postCourse(this.payload).subscribe({
             next: (res) => {
-              console.log(res, 'course added');
               this.getCourses();
               this.snackbar.open(res.message, 'Dismiss', {
                 duration: 4000
@@ -95,7 +115,7 @@ export class CourseComponent implements OnInit {
     }
 
     if (val != 'all') {
-      this.courses = this.courses.filter((el) => el.level == val);
+      this.courses = this.courses.filter((el) => el.level.level == val);
       this.dataSource = new MatTableDataSource(this.courses);
       this.dataSource.paginator = this.paginator;
     }
@@ -122,36 +142,30 @@ export class CourseComponent implements OnInit {
 
 
   edit(Id: any) {
-  let dialogConfig = new MatDialogConfig();
-  dialogConfig.minWidth = '40%';
-  dialogConfig.minHeight = '30vh';
-  dialogConfig.disableClose = false;
+    let dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '40%';
+    dialogConfig.minHeight = '30vh';
+    dialogConfig.disableClose = false;
 
-  this.app.getSingleCourses(Id).subscribe({
-    next: (res) => {
-      dialogConfig.data = res;
+    this.app.getSingleCourses(Id).subscribe({
+        next: (res) => {
+            dialogConfig.data = res;
 
-      this.dialog
-        .open(EditCourseComponent, dialogConfig)
-        .afterClosed()
-        .subscribe((res: any) => {
-          if (res) {
-            this.app.editCourse(res.value, Id).subscribe({
-              next: () => {
-                this.getCourses();
-              },
-              error: (err) => {
-                console.error('Error updating course:', err);
-              },
-            });
-          }
-        });
-    },
-    error: (err) => {
-      console.error('Error fetching course:', err);
-    },
-  });
+            this.dialog
+                .open(EditCourseComponent, dialogConfig)
+                .afterClosed()
+                .subscribe((result: any) => {
+                    if (result) {
+                        this.getCourses();
+                    }
+                });
+        },
+        error: (err) => {
+            console.error('Error fetching course:', err);
+        },
+    });
 }
+
 
             // if (res) {
             //   for (let i = 0; i < this.courses.length; i++) {
@@ -169,8 +183,6 @@ export class CourseComponent implements OnInit {
 
   //DELETE A COURSE
   delete(Id: any) {
-    console.log(Id, 'id');
-
     this.app.deleteCourse(Id).subscribe(
       (res) => {
         console.log(res);
@@ -179,8 +191,6 @@ export class CourseComponent implements OnInit {
           duration: 4000
         })
         this.getCourses()
-        console.log(res.message, 'msg');
-
       }
     )
   }

@@ -19,9 +19,15 @@
       <div class="forgot">Forgot Password?</div>
     </div>
     <div class="error-msg" *ngIf="errmsg">{{errmsg}}</div>
-    <button mat-flat-button class="submit-btn" color="primary" [disabled]="loginForm.invalid" (click)="userLogin()">
-      LOGIN
-    </button>
+    <app-loading-button
+  label="LOGIN"
+  [loading]="loading"
+  [disabled]="loginForm.invalid"
+  color="primary"
+  class="submit-btn"
+  (clicked)="userLogin()"
+></app-loading-button>
+
   </div>
   <div class="signup">
     Don't have an account? <span routerLink="signup">Sign Up</span>

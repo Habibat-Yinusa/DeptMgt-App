@@ -67,8 +67,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  userLogin() {
+  loading: boolean = false;
+
+userLogin() {
   this.errmsg = '';
+  this.loading = true;
 
   const form = this.loginForm.value;
   this.payload.email = form.email;
@@ -77,20 +80,19 @@ export class LoginComponent implements OnInit {
   this.app.loginUser(this.payload).subscribe({
     next: (res) => {
       console.log(res, 'res');
-      // Save response (token or user info)
       localStorage.setItem('loggedUser', JSON.stringify(res));
-
-      // Navigate to dashboard
       this.router.navigate(['/app/level']);
+      this.loading = false;
     },
     error: (err) => {
       console.log(err);
-
       this.errmsg = err.error?.message || 'Error connecting to database';
+      this.loading = false;
       setTimeout(() => {
         this.errmsg = '';
       }, 5000);
     },
   });
 }
+
 }

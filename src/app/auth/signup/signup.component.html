@@ -27,9 +27,16 @@
           placeholder="Confirm Password" />
       </div>
 
-      <button mat-flat-button class="submit-btn" [disabled]="signUpForm.invalid" (click)="setStorage()" color="primary">
-        Sign Up
-      </button>
+      <app-loading-button
+        label="Sign Up"
+        [loading]="loading"
+        [disabled]="signUpForm.invalid"
+        color="primary"
+        class="submit-btn"
+        (clicked)="setStorage()"
+      ></app-loading-button>
+
+
     </form>
   </div>
 

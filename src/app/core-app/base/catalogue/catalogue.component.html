@@ -100,7 +100,7 @@
               Create and manage your Profile
             </div>
           </div>
-          <button mat-flat-button color="primary">Save</button>
+          <button mat-flat-button color="primary" (click)="updateUser(userInfo.user.userId)">Save</button>
         </div>
 
         <div class="top-line"></div>
@@ -138,15 +138,16 @@
               </div>
 
               <div class="input">
-                <input class="custom-input small" type="text" [value]="userInfo.user.userName" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.user.firstName" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.user.middleName" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.user.lastName" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.user.email" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.user.department" /><br />
-                <input class="custom-input small" type="text" [value]="userInfo.user.faculty" />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.userName" name="userName" /><br />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.firstName" name="firstName" /><br />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.middleName" name="middleName" /><br />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.lastName" name="lastName" /><br />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.email" name="email" /><br />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.department" name="department" /><br />
+                <input class="custom-input small" type="text" [(ngModel)]="userInfo.user.faculty" name="faculty" />
               </div>
             </form>
+
           </div>
         </div>
       </div>

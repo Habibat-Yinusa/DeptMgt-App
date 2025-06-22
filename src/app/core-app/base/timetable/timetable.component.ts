@@ -14,16 +14,7 @@ import { TIME_TABLE } from './timetable-config';
 })
 export class TimetableComponent implements OnInit {
   levelList: any[] = [];
-  levelCourses: any[] = [
-    // { dot: '#000077', courseCode: 'MAT 101', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 100 },
-    // { dot: '#000077', courseCode: 'MAT 102', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 100 },
-    // { dot: '#007700', courseCode: 'MAT 201', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 200 },
-    // { dot: '#007700', courseCode: 'MAT 202', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 200 },
-    // { dot: '#b70000', courseCode: 'MAT 301', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 300 },
-    // { dot: '#b70000', courseCode: 'MAT 302', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 300 },
-    // { dot: '#faad1f', courseCode: 'MAT 401', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 400 },
-    // { dot: '#faad1f', courseCode: 'MAT 402', course: 'Mathematics', lecturer: 'Mubeen Habibat', level: 400 },
-  ];
+  levelCourses: any[] = [];
   registered: any[] = [];
   todo: any[] = [];
   courseCode: any;
@@ -61,6 +52,17 @@ export class TimetableComponent implements OnInit {
   // todo = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   ngOnInit(): void {
+     const storedTimeTable = localStorage.getItem('timeTable');
+
+    if (storedTimeTable) {
+      // Load from localStorage
+      this.timeTable = JSON.parse(storedTimeTable);
+      console.log('Loaded timetable from storage:', this.timeTable);
+    } else {
+      // If no storage, use default TIME_TABLE
+      this.timeTable = TIME_TABLE;
+    }
+
   this.app.getCourses().subscribe({
     next: (res) => {
       this.levelCourses = res;
@@ -71,7 +73,11 @@ export class TimetableComponent implements OnInit {
         this.todo.push(this.courseCode);
       });
 
-      console.log(this.todo, 'todo');
+      const saved = localStorage.getItem('savedTimetable');
+      if (saved) {
+        this.timeTable = JSON.parse(saved);
+         this.removeCoursesInTimetableFromLevelCourses();
+      }
     },
     error: (err) => {
       console.error('Error fetching courses:', err);
@@ -84,6 +90,21 @@ getRandomColor(): string {
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
 }
+
+removeCoursesInTimetableFromLevelCourses() {
+  const droppedCoursesCodes: string[] = [];
+
+  this.timeTable.forEach(slot => {
+    slot.courses.forEach(course => {
+      droppedCoursesCodes.push(course.courseCode);
+    });
+  });
+
+  this.levelCourses = this.levelCourses.filter(course =>
+    !droppedCoursesCodes.includes(course.courseCode)
+  );
+}
+
 
 
   ngAfterViewInit(): void {
@@ -169,11 +190,33 @@ getRandomColor(): string {
         event.currentIndex
       );
     }
+
+    localStorage.setItem('savedTimetable', JSON.stringify(this.timeTable));
   }
 
-  backToList(item: any) {
-    console.log(item, 'bringing');
+  // backToList(item: any) {
+  //   console.log(item, 'bringing');
+  // }
+
+  backToList(event: CdkDragDrop<any[]>) {
+    console.log(event, 'bringing');
+    const droppedItem = event.item.data;
+    console.log(droppedItem, 'dropped item');
   }
+
+ removeDroppedCourse(course: any, coursesArray: any[]) {
+  const index = coursesArray.indexOf(course);
+  if (index > -1) {
+    coursesArray.splice(index, 1);
+
+    const alreadyInList = this.levelCourses.find((c) => c.courseCode === course.courseCode);
+    if (!alreadyInList) {
+      this.levelCourses.push(course);
+    }
+    localStorage.setItem('timeTable', JSON.stringify(this.timeTable));
+  }
+
+}
 
   idlist: string[] = ['levelCourses']
   makeList() {

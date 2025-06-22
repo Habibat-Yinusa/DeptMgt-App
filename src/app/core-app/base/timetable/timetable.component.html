@@ -18,8 +18,10 @@
           <div class="tab-card" cdkDropList [id]=" 'timeTable' + i" [cdkDropListConnectedTo]="idlist" [cdkDropListData]="item.courses" (cdkDropListDropped)="addToTable($event)">
             <ng-container *ngFor="let card of item.courses">
               <div class="cos" [ngStyle]="{'color': card.dot, 'background-color': card.dot + '1A'}" cdkDrag>
-                <span>{{card.name}}</span>
-                <mat-icon class="ic red">close</mat-icon>
+                <span>{{card.courseCode}}</span>
+                <button mat-icon-button (click)="removeDroppedCourse(card, item.courses)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
               </div>
             </ng-container>
           </div>
@@ -47,7 +49,7 @@
             </div>
             <div class="opt-ext">
               <div class="nm"> <mat-icon class="ic">leaderboard</mat-icon> Level: </div>
-              <div class="sb">{{course.level}} Level</div>
+              <div class="sb">{{course.level.level}} Level</div>
             </div>
           </div>
         </div>

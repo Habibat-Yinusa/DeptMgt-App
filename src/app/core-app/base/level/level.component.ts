@@ -100,8 +100,8 @@ export class LevelComponent implements OnInit {
   //   this.levelArray.splice(i, 1);
   //   localStorage.setItem('levels', JSON.stringify(this.levelArray));
   // }
-  delete(id: string) {
-    this.app.deleteLevel(id).subscribe(
+  delete(levelId: string) {
+    this.app.deleteLevel(levelId).subscribe(
       res => {
         this.getlevels();
       }

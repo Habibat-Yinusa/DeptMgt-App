@@ -108,9 +108,9 @@ export class DataService {
       .get<any>(this.testurl + `/levels/${levelId}`)
       .pipe(catchError((err) => this.errorHandler(err)));
   }
-  deleteLevel(id: string): Observable<any> {
+  deleteLevel(levelId: string): Observable<any> {
     return this.http
-    .delete<any>(this.testurl + `/levels/${id}`)
+    .delete<any>(this.testurl + `/levels/${levelId}`)
     .pipe(catchError((err) => this.errorHandler(err)))
   }
 
